@@ -15,6 +15,16 @@ class App extends Component {
     this.setState({ title: "Hello from changed title!" });
   };
 
+  increasePersonAge = personName => {
+    const newPersonsArray = this.state.persons.map(person => {
+      if (person.name === personName) {
+        person.age++;
+      }
+      return person;
+    });
+    this.setState({ persons: newPersonsArray });
+  };
+
   render() {
     return (
       <div className="App">
@@ -24,10 +34,12 @@ class App extends Component {
         <Person
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}
+          increaseAge={this.increasePersonAge.bind(this, "Iliyan")}
         />
         <Person
           name={this.state.persons[1].name}
           age={this.state.persons[1].age}
+          increaseAge={this.increasePersonAge.bind(this, "Veronika")}
         />
         <Car color={this.state.cars[0].color} hp={this.state.cars[0].hp}>
           Model: Ferari

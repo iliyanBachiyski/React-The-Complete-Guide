@@ -8,6 +8,7 @@ const person = props => {
       <h4>
         My name is {props.name}, and I am {props.age} years old!
       </h4>
+      <button onClick={props.increaseAge}>Increase Age!</button>
       <hr />
     </div>
   );
