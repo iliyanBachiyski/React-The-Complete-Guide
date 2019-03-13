@@ -25,6 +25,16 @@ class App extends Component {
     this.setState({ persons: newPersonsArray });
   };
 
+  changeNameHandler = (event, name) => {
+    const newPersonsArray = this.state.persons.map(person => {
+      if (person.name === name) {
+        person.name = event.target.value;
+      }
+      return person;
+    });
+    this.setState({ persons: newPersonsArray });
+  };
+
   render() {
     return (
       <div className="App">
@@ -34,12 +44,14 @@ class App extends Component {
         <Person
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}
-          increaseAge={this.increasePersonAge.bind(this, "Iliyan")}
+          increaseAge={this.increasePersonAge}
+          changeName={this.changeNameHandler}
         />
         <Person
           name={this.state.persons[1].name}
           age={this.state.persons[1].age}
-          increaseAge={this.increasePersonAge.bind(this, "Veronika")}
+          increaseAge={this.increasePersonAge}
+          changeName={this.changeNameHandler}
         />
         <Car color={this.state.cars[0].color} hp={this.state.cars[0].hp}>
           Model: Ferari
