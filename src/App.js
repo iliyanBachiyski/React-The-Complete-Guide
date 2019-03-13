@@ -1,25 +1,39 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Person from "./Person/Person";
+import Car from "./Car/Car";
+import Computer from "./Computer/Computer";
+import "./App.css";
 
 class App extends Component {
+  state = {
+    title: "Hello from App Component!",
+    persons: [{ name: "Iliyan", age: 24 }, { name: "Veronika", age: 23 }],
+    cars: [{ color: "Red", hp: 240 }, { color: "Grey", hp: 101 }]
+  };
+
+  changeTitleHandler = () => {
+    this.setState({ title: "Hello from changed title!" });
+  };
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h1>{this.state.title}</h1>
+        <button onClick={this.changeTitleHandler}>Change Title</button>
+        <hr />
+        <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}
+        />
+        <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+        />
+        <Car color={this.state.cars[0].color} hp={this.state.cars[0].hp}>
+          Model: Ferari
+        </Car>
+        <Car color={this.state.cars[1].color} hp={this.state.cars[1].hp} />
+        <Computer />
       </div>
     );
   }
