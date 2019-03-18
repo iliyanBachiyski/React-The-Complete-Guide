@@ -62,11 +62,9 @@ class App extends Component {
     if (this.state.showCars) {
       cars = (
         <div>
-          <Car color={this.state.cars[0].color} hp={this.state.cars[0].hp}>
-            Model: Ferari
-          </Car>
-          <Car color={this.state.cars[1].color} hp={this.state.cars[1].hp} />
-          <Car color={this.state.cars[2].color} hp={this.state.cars[2].hp} />
+          {this.state.cars.map(car => {
+            return <Car color={car.color} hp={car.hp} />;
+          })}
         </div>
       );
     } else {
@@ -84,24 +82,16 @@ class App extends Component {
         <hr />
         {this.state.showPersons ? (
           <div>
-            <Person
-              name={this.state.persons[0].name}
-              age={this.state.persons[0].age}
-              increaseAge={this.increasePersonAge}
-              changeName={this.changeNameHandler}
-            />
-            <Person
-              name={this.state.persons[1].name}
-              age={this.state.persons[1].age}
-              increaseAge={this.increasePersonAge}
-              changeName={this.changeNameHandler}
-            />
-            <Person
-              name={this.state.persons[2].name}
-              age={this.state.persons[2].age}
-              increaseAge={this.increasePersonAge}
-              changeName={this.changeNameHandler}
-            />
+            {this.state.persons.map(person => {
+              return (
+                <Person
+                  name={person.name}
+                  age={person.age}
+                  increaseAge={this.increasePersonAge}
+                  changeName={this.changeNameHandler}
+                />
+              );
+            })}
           </div>
         ) : (
           <div>
