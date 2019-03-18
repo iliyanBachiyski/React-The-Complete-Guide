@@ -3,6 +3,7 @@ import Person from "./Person/Person";
 import Car from "./Car/Car";
 import Computer from "./Computer/Computer";
 import "./App.css";
+import Radium from "radium";
 
 class App extends Component {
   state = {
@@ -69,16 +70,32 @@ class App extends Component {
   };
 
   render() {
+    const bodyStyle = {
+      "@media (max-width: 1024px)": {
+        width: "450px"
+      }
+    };
     const style = {
       backgroundColor: "green",
       color: "white"
     };
+    const buttonStyle = {
+      ":hover": {
+        backgroundColor: "lightgreen"
+      }
+    };
     const classes = ["button"];
     if (this.state.persons.length <= 1) {
       classes.push("red", "red-bold");
+      buttonStyle[":hover"] = {
+        backgroundColor: "salmon"
+      };
     }
     if (this.state.persons.length === 2) {
       classes.push("yellow", "yellow-bold");
+      buttonStyle[":hover"] = {
+        backgroundColor: "lightyellow"
+      };
     }
     if (this.state.persons.length >= 3) {
       classes.push("green", "green-bold");
@@ -101,9 +118,10 @@ class App extends Component {
       );
     }
     return (
-      <div className="App">
+      <div className="App" style={bodyStyle}>
         <h1>{this.state.title}</h1>
         <button
+          style={buttonStyle}
           className={classes.join(" ")}
           onClick={this.tooglePersonHandler}
         >
@@ -142,4 +160,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);
