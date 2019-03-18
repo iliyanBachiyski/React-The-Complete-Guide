@@ -12,13 +12,13 @@ const person = props => {
       <h4>
         My name is {props.name}, and I am {props.age} years old!
       </h4>
-      <input
-        type="text"
-        onChange={event => props.changeName(event, props.name)}
-        value={props.name}
-      />
-      <button style={style} onClick={() => props.increaseAge(props.name)}>
+      <input type="text" onChange={props.changeName} value={props.name} />
+      <br />
+      <button style={style} onClick={props.increaseAge}>
         Increase Age!
+      </button>
+      <button style={style} onClick={props.deletePerson}>
+        Delete Person
       </button>
     </div>
   );

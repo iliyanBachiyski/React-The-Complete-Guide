@@ -10,39 +10,44 @@ class App extends Component {
     showCars: false,
     title: "Hello from App Component!",
     persons: [
-      { name: "Iliyan", age: 24 },
-      { name: "Veronika", age: 23 },
-      { name: "Ivelin", age: 22 }
+      { id: "personUniqueKey1", name: "Iliyan", age: 24 },
+      { id: "personUniqueKey2", name: "Veronika", age: 23 },
+      { id: "personUniqueKey3", name: "Ivelin", age: 22 }
     ],
     cars: [
-      { color: "Red", hp: 240 },
-      { color: "Grey", hp: 101 },
-      { color: "Blue", hp: 150 }
+      { id: "carUniqueKey1", color: "Red", hp: 240 },
+      { id: "carUniqueKey2", color: "Grey", hp: 101 },
+      { id: "carUniqueKey3", color: "Blue", hp: 150 }
     ]
   };
 
-  changeTitleHandler = () => {
-    this.setState({ title: "Hello from changed title!" });
+  getPersonIndexByName = name => {
+    const personIndex = this.state.persons.findIndex(person => {
+      return person.name === name;
+    });
+    return personIndex;
   };
 
   increasePersonAge = personName => {
-    const newPersonsArray = this.state.persons.map(person => {
-      if (person.name === personName) {
-        person.age++;
-      }
-      return person;
-    });
-    this.setState({ persons: newPersonsArray });
+    const personIndex = this.getPersonIndexByName(personName);
+    if (personIndex > -1) {
+      const person = { ...this.state.persons[personIndex] };
+      person.age++;
+      const persons = [...this.state.persons];
+      persons[personIndex] = person;
+      this.setState({ persons });
+    }
   };
 
   changeNameHandler = (event, name) => {
-    const newPersonsArray = this.state.persons.map(person => {
-      if (person.name === name) {
-        person.name = event.target.value;
-      }
-      return person;
-    });
-    this.setState({ persons: newPersonsArray });
+    const personIndex = this.getPersonIndexByName(name);
+    if (personIndex > -1) {
+      const person = { ...this.state.persons[personIndex] };
+      person.name = event.target.value;
+      const personsArray = [...this.state.persons];
+      personsArray[personIndex] = person;
+      this.setState({ persons: personsArray });
+    }
   };
 
   tooglePersonHandler = () => {
@@ -57,13 +62,19 @@ class App extends Component {
     });
   };
 
+  deletePerson = index => {
+    const persons = [...this.state.persons];
+    persons.splice(index, 1);
+    this.setState({ persons });
+  };
+
   render() {
     let cars = null;
     if (this.state.showCars) {
       cars = (
         <div>
           {this.state.cars.map(car => {
-            return <Car color={car.color} hp={car.hp} />;
+            return <Car color={car.color} hp={car.hp} key={car.id} />;
           })}
         </div>
       );
@@ -82,13 +93,17 @@ class App extends Component {
         <hr />
         {this.state.showPersons ? (
           <div>
-            {this.state.persons.map(person => {
+            {this.state.persons.map((person, idx) => {
               return (
                 <Person
                   name={person.name}
                   age={person.age}
-                  increaseAge={this.increasePersonAge}
-                  changeName={this.changeNameHandler}
+                  increaseAge={() => this.increasePersonAge(person.name)}
+                  changeName={event =>
+                    this.changeNameHandler(event, person.name)
+                  }
+                  deletePerson={() => this.deletePerson(idx)}
+                  key={person.id}
                 />
               );
             })}
