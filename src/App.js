@@ -69,6 +69,20 @@ class App extends Component {
   };
 
   render() {
+    const style = {
+      backgroundColor: "green",
+      color: "white"
+    };
+    const classes = ["button"];
+    if (this.state.persons.length <= 1) {
+      classes.push("red", "red-bold");
+    }
+    if (this.state.persons.length === 2) {
+      classes.push("yellow", "yellow-bold");
+    }
+    if (this.state.persons.length >= 3) {
+      classes.push("green", "green-bold");
+    }
     let cars = null;
     if (this.state.showCars) {
       cars = (
@@ -78,6 +92,7 @@ class App extends Component {
           })}
         </div>
       );
+      style.backgroundColor = "red";
     } else {
       cars = (
         <div>
@@ -88,8 +103,15 @@ class App extends Component {
     return (
       <div className="App">
         <h1>{this.state.title}</h1>
-        <button onClick={this.tooglePersonHandler}>Show/Hide Persons</button>
-        <button onClick={this.toogleCarsHandler}>Show/Hide Cars</button>
+        <button
+          className={classes.join(" ")}
+          onClick={this.tooglePersonHandler}
+        >
+          Show/Hide Persons
+        </button>
+        <button style={style} onClick={this.toogleCarsHandler}>
+          Show/Hide Cars
+        </button>
         <hr />
         {this.state.showPersons ? (
           <div>
