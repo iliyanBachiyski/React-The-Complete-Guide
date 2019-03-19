@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import computerStyles from "./Computer.module.css";
 
+//This is simple React Hook Component!
+//We are using internal state here only to show this possibility!
+
 const computer = () => {
   const initialRAMValue = 128;
   const initialRAMExtension = "MB";
