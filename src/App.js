@@ -70,32 +70,13 @@ class App extends Component {
   };
 
   render() {
-    const bodyStyle = {
-      "@media (max-width: 1024px)": {
-        width: "450px"
-      }
-    };
-    const style = {
-      backgroundColor: "green",
-      color: "white"
-    };
-    const buttonStyle = {
-      ":hover": {
-        backgroundColor: "lightgreen"
-      }
-    };
-    const classes = ["button"];
+    let buttonColorStyle = appModuleStyles.green;
+    const classes = [];
     if (this.state.persons.length <= 1) {
       classes.push(appModuleStyles.red, appModuleStyles.redBold);
-      buttonStyle[":hover"] = {
-        backgroundColor: "salmon"
-      };
     }
     if (this.state.persons.length === 2) {
       classes.push(appModuleStyles.yellow, appModuleStyles.yellowBold);
-      buttonStyle[":hover"] = {
-        backgroundColor: "lightyellow"
-      };
     }
     if (this.state.persons.length >= 3) {
       classes.push(appModuleStyles.green, appModuleStyles.greenBold);
@@ -109,7 +90,7 @@ class App extends Component {
           })}
         </div>
       );
-      style.backgroundColor = "red";
+      buttonColorStyle = appModuleStyles.red;
     } else {
       cars = (
         <div>
@@ -118,16 +99,15 @@ class App extends Component {
       );
     }
     return (
-      <div className={appModuleStyles.App} style={bodyStyle}>
+      <div className={appModuleStyles.App}>
         <h1>{this.state.title}</h1>
         <button
-          style={buttonStyle}
           className={classes.join(" ")}
           onClick={this.tooglePersonHandler}
         >
           Show/Hide Persons
         </button>
-        <button style={style} onClick={this.toogleCarsHandler}>
+        <button className={buttonColorStyle} onClick={this.toogleCarsHandler}>
           Show/Hide Cars
         </button>
         <hr />

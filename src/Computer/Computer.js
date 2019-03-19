@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import computerStyles from "./Computer.module.css";
 
-const computer = props => {
+const computer = () => {
   const initialRAMValue = 128;
   const initialRAMExtension = "MB";
   const [computerState, setComputerState] = useState({
@@ -28,8 +29,18 @@ const computer = props => {
         My computer has {computerState.ramValue}
         {computerState.ramExtension} RAM!
       </h4>
-      <button onClick={increaseRAMHandler}>Increase RAM</button>
-      <button onClick={resetRAMHandler}>Reset RAM</button>
+      <button
+        className={computerStyles.computerButton}
+        onClick={increaseRAMHandler}
+      >
+        Increase RAM
+      </button>
+      <button
+        className={computerStyles.computerButton}
+        onClick={resetRAMHandler}
+      >
+        Reset RAM
+      </button>
       <hr />
     </div>
   );

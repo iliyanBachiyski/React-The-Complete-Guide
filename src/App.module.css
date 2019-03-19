@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.button {
+button {
   color: white;
 }
 
@@ -29,4 +29,22 @@
 
 .greenBold {
   font-weight: 700;
+}
+
+button.red:hover {
+  background-color: salmon;
+}
+
+button.yellow:hover {
+  background-color: lightyellow;
+}
+
+button.green:hover {
+  background-color: lightgreen;
+}
+
+@media (max-width: 1024px) {
+  .App {
+    width: 450px;
+  }
 }

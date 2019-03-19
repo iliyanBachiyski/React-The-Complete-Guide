@@ -1,0 +1,8 @@
+.computerButton {
+  background-color: #33fe21;
+  border: 1px solid blue;
+}
+
+button:hover {
+  background-color: aqua;
+}

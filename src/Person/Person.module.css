@@ -6,3 +6,8 @@
   padding: 30px;
   text-align: center;
 }
+
+.personButton {
+  background-color: #cceeff;
+  border: 1px solid blue;
+}
