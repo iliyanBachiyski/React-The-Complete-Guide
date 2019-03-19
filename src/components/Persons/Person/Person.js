@@ -1,5 +1,6 @@
 import React from "react";
 import personStyles from "./Person.module.css";
+
 const person = props => {
   const title = "Hello, this is simple functional(stateless) component!";
   return (

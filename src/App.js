@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import Person from "./Person/Person";
-import Car from "./Car/Car";
-import Computer from "./Computer/Computer";
+import Persons from "./components/Persons/Persons";
+import Cars from "./components/Cars/Cars";
+import Header from "./components/Header/Header";
+import Computer from "./components/Computer/Computer";
 import appModuleStyles from "./App.module.css";
 import Radium from "radium";
 
@@ -70,70 +71,23 @@ class App extends Component {
   };
 
   render() {
-    let buttonColorStyle = appModuleStyles.green;
-    const classes = [];
-    if (this.state.persons.length <= 1) {
-      classes.push(appModuleStyles.red, appModuleStyles.redBold);
-    }
-    if (this.state.persons.length === 2) {
-      classes.push(appModuleStyles.yellow, appModuleStyles.yellowBold);
-    }
-    if (this.state.persons.length >= 3) {
-      classes.push(appModuleStyles.green, appModuleStyles.greenBold);
-    }
-    let cars = null;
-    if (this.state.showCars) {
-      cars = (
-        <div>
-          {this.state.cars.map(car => {
-            return <Car color={car.color} hp={car.hp} key={car.id} />;
-          })}
-        </div>
-      );
-      buttonColorStyle = appModuleStyles.red;
-    } else {
-      cars = (
-        <div>
-          <p>Press the button to Show/Hide cars!</p>
-        </div>
-      );
-    }
     return (
       <div className={appModuleStyles.App}>
-        <h1>{this.state.title}</h1>
-        <button
-          className={classes.join(" ")}
-          onClick={this.tooglePersonHandler}
-        >
-          Show/Hide Persons
-        </button>
-        <button className={buttonColorStyle} onClick={this.toogleCarsHandler}>
-          Show/Hide Cars
-        </button>
+        <Header
+          title={this.state.title}
+          tooglePersonHandler={this.tooglePersonHandler}
+          toogleCarsHandler={this.toogleCarsHandler}
+          personsLength={this.state.persons.length}
+        />
         <hr />
-        {this.state.showPersons ? (
-          <div>
-            {this.state.persons.map((person, idx) => {
-              return (
-                <Person
-                  name={person.name}
-                  age={person.age}
-                  increaseAge={() => this.increasePersonAge(person.name)}
-                  changeName={event =>
-                    this.changeNameHandler(event, person.name)
-                  }
-                  deletePerson={() => this.deletePerson(idx)}
-                  key={person.id}
-                />
-              );
-            })}
-          </div>
-        ) : (
-          <div>
-            <p>Press the button to Show/Hide persons!</p>
-          </div>
-        )}
-        {cars}
+        <Persons
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          increaseAge={this.increasePersonAge}
+          changeName={this.changeNameHandler}
+          deletePerson={this.deletePerson}
+        />
+        <Cars showCars={this.state.showCars} cars={this.state.cars} />
         <Computer />
       </div>
     );
