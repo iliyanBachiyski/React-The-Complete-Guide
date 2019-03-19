@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Person from "./Person/Person";
 import Car from "./Car/Car";
 import Computer from "./Computer/Computer";
-import "./App.css";
+import appModuleStyles from "./App.module.css";
 import Radium from "radium";
 
 class App extends Component {
@@ -86,19 +86,19 @@ class App extends Component {
     };
     const classes = ["button"];
     if (this.state.persons.length <= 1) {
-      classes.push("red", "red-bold");
+      classes.push(appModuleStyles.red, appModuleStyles.redBold);
       buttonStyle[":hover"] = {
         backgroundColor: "salmon"
       };
     }
     if (this.state.persons.length === 2) {
-      classes.push("yellow", "yellow-bold");
+      classes.push(appModuleStyles.yellow, appModuleStyles.yellowBold);
       buttonStyle[":hover"] = {
         backgroundColor: "lightyellow"
       };
     }
     if (this.state.persons.length >= 3) {
-      classes.push("green", "green-bold");
+      classes.push(appModuleStyles.green, appModuleStyles.greenBold);
     }
     let cars = null;
     if (this.state.showCars) {
@@ -118,7 +118,7 @@ class App extends Component {
       );
     }
     return (
-      <div className="App" style={bodyStyle}>
+      <div className={appModuleStyles.App} style={bodyStyle}>
         <h1>{this.state.title}</h1>
         <button
           style={buttonStyle}

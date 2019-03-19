@@ -1,3 +1,7 @@
+.App {
+  text-align: center;
+}
+
 .button {
   color: white;
 }
@@ -6,7 +10,7 @@
   background-color: red;
 }
 
-.red-bold {
+.redBold {
   font-weight: 50;
 }
 
@@ -15,7 +19,7 @@
   color: black;
 }
 
-.yellow-bold {
+.yellowBold {
   font-weight: 300;
 }
 
@@ -23,6 +27,6 @@
   background-color: green;
 }
 
-.green-bold {
+.greenBold {
   font-weight: 700;
 }
