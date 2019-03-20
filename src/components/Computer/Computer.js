@@ -25,6 +25,10 @@ const computer = () => {
       ramValue: initialRAMValue
     });
   };
+
+  const simulateError = () => {
+    throw new Error("Something Went Wrong...!");
+  };
   return (
     <div>
       <h3>Hello, this is simple functional(hook) component!</h3>
@@ -43,6 +47,9 @@ const computer = () => {
         onClick={resetRAMHandler}
       >
         Reset RAM
+      </button>
+      <button className={computerStyles.computerButton} onClick={simulateError}>
+        Simulate Error
       </button>
       <hr />
     </div>

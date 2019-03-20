@@ -3,6 +3,7 @@ import Persons from "./components/Persons/Persons";
 import Cars from "./components/Cars/Cars";
 import Header from "./components/Header/Header";
 import Computer from "./components/Computer/Computer";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import appModuleStyles from "./App.module.css";
 
 class App extends Component {
@@ -87,7 +88,9 @@ class App extends Component {
           deletePerson={this.deletePerson}
         />
         <Cars showCars={this.state.showCars} cars={this.state.cars} />
-        <Computer />
+        <ErrorBoundary>
+          <Computer />
+        </ErrorBoundary>
       </div>
     );
   }
