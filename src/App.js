@@ -4,7 +4,6 @@ import Cars from "./components/Cars/Cars";
 import Header from "./components/Header/Header";
 import Computer from "./components/Computer/Computer";
 import appModuleStyles from "./App.module.css";
-import Radium from "radium";
 
 class App extends Component {
   state = {
@@ -94,4 +93,4 @@ class App extends Component {
   }
 }
 
-export default Radium(App);
+export default App;
