@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import appModuleStyles from "../../App.module.css";
 
 const header = props => {
+  useEffect(() => {
+    /**
+     * This function will be executed when the component get (re)rendered!
+     */
+    console.log("[Header] Component is (Re)Rendered!");
+  });
   let buttonColorStyle = appModuleStyles.green;
   const classes = [];
   if (props.personsLength <= 1) {
@@ -26,4 +32,9 @@ const header = props => {
   );
 };
 
-export default header;
+/**
+ * With this memoization, we are preventing component re-rendering.
+ * Into Class-based component this optimization can be implement in shouldComponentUpdate() method
+ * It will be re-renderd only the props get changed.
+ */
+export default React.memo(header);

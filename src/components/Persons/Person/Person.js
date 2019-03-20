@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import personStyles from "./Person.module.css";
 
 const person = props => {
+  /**
+   * This function will be executed in every (Re)Rendering.
+   */
+  useEffect(() => {
+    console.log("[Person] Component is (Re)Rendered!");
+    /**
+     * This function will be executed when component is destroying.
+     */
+    return () => {
+      console.log("[Person] Component is Destroying!");
+    };
+  }, []);
   const title = "Hello, this is simple functional(stateless) component!";
   return (
     <div className={personStyles.Person}>
