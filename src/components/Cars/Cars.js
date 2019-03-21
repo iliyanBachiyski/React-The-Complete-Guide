@@ -1,5 +1,6 @@
 import React from "react";
 import Car from "./Car/Car";
+import PropTypes from "prop-types";
 
 const cars = props => {
   const cars = props.showCars ? (
@@ -12,4 +13,8 @@ const cars = props => {
   return <div>{cars}</div>;
 };
 
+cars.propTypes = {
+  showCars: PropTypes.bool,
+  cars: PropTypes.array
+};
 export default cars;

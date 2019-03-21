@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
 
 export default class Car extends Component {
   /**
@@ -42,3 +43,8 @@ export default class Car extends Component {
     );
   }
 }
+
+Car.propTypes = {
+  color: PropTypes.string,
+  hp: PropTypes.number
+};
