@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import WithClass from "../../hoc/WithClass";
 import personStyles from "./Person.module.css";
 
 const person = props => {
@@ -16,7 +17,7 @@ const person = props => {
   }, []);
   const title = "Hello, this is simple functional(stateless) component!";
   return (
-    <div className={personStyles.Person}>
+    <WithClass classes={personStyles.Person}>
       <h3>{title}</h3>
       <h4>
         My name is {props.name}, and I am {props.age} years old!
@@ -32,7 +33,7 @@ const person = props => {
       >
         Delete Person
       </button>
-    </div>
+    </WithClass>
   );
 };
 

@@ -4,6 +4,7 @@ import Cars from "./components/Cars/Cars";
 import Header from "./components/Header/Header";
 import Computer from "./components/Computer/Computer";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import WithClass from "./components/hoc/WithClass";
 import appModuleStyles from "./App.module.css";
 
 class App extends Component {
@@ -72,7 +73,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className={appModuleStyles.App}>
+      <WithClass classes={appModuleStyles.App}>
         <Header
           title={this.state.title}
           tooglePersonHandler={this.tooglePersonHandler}
@@ -91,7 +92,7 @@ class App extends Component {
         <ErrorBoundary>
           <Computer />
         </ErrorBoundary>
-      </div>
+      </WithClass>
     );
   }
 }
