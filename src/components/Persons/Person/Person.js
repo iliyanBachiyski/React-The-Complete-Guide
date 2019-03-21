@@ -9,7 +9,7 @@ const person = props => {
   useEffect(() => {
     console.log("[Person] Component is (Re)Rendered!");
     /**
-     * This function will be executed when component is destroying.
+     * This function will be executed only once at the first component rendering.
      */
     return () => {
       console.log("[Person] Component is Destroying!");

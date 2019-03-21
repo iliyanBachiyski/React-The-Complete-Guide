@@ -1,13 +1,18 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, useRef, Fragment } from "react";
 import appModuleStyles from "../../App.module.css";
 
 const header = props => {
+  const personButtonRef = useRef(null);
   useEffect(() => {
     /**
      * This function will be executed when the component get (re)rendered!
      */
     console.log("[Header] Component is (Re)Rendered!");
   });
+
+  useEffect(() => {
+    personButtonRef.current.click();
+  }, []);
   let buttonColorStyle = appModuleStyles.green;
   const classes = [];
   if (props.personsLength <= 1) {
@@ -22,7 +27,11 @@ const header = props => {
   return (
     <Fragment>
       <h1>{props.title}</h1>
-      <button className={classes.join(" ")} onClick={props.tooglePersonHandler}>
+      <button
+        className={classes.join(" ")}
+        onClick={props.tooglePersonHandler}
+        ref={personButtonRef}
+      >
         Show/Hide Persons
       </button>
       <button className={buttonColorStyle} onClick={props.toogleCarsHandler}>

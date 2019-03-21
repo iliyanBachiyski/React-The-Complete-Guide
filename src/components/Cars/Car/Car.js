@@ -2,6 +2,15 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 
 export default class Car extends Component {
+  constructor(props) {
+    super(props);
+    this.titleElementRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.titleElementRef.current.style.color = "#edb717";
+    this.subHeaderElement.style.color = this.props.color.toLowerCase();
+  }
   /**
    * This function will prevent our component from re-rendering if there have no props changes!
    * We can use PureComponent instead of checking all of our incoming props!
@@ -33,8 +42,14 @@ export default class Car extends Component {
     }
     return (
       <Fragment>
-        <h3>Hello, this is simple class component!</h3>
-        <h4>
+        <h3 ref={this.titleElementRef}>
+          Hello, this is simple class component!
+        </h3>
+        <h4
+          ref={subHeaderElement => {
+            this.subHeaderElement = subHeaderElement;
+          }}
+        >
           I have {this.props.color} car with {this.props.hp} hp's!
         </h4>
         {childElement}
