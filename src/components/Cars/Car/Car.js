@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 export default class Car extends Component {
   /**
    * This function will prevent our component from re-rendering if there have no props changes!
+   * We can use PureComponent instead of checking all of our incoming props!
    */
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.color !== nextProps.color) {
@@ -30,14 +31,14 @@ export default class Car extends Component {
       childElement = <h5>{this.props.children}</h5>;
     }
     return (
-      <div>
+      <Fragment>
         <h3>Hello, this is simple class component!</h3>
         <h4>
           I have {this.props.color} car with {this.props.hp} hp's!
         </h4>
         {childElement}
         <hr />
-      </div>
+      </Fragment>
     );
   }
 }

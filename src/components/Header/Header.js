@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import appModuleStyles from "../../App.module.css";
 
 const header = props => {
@@ -20,7 +20,7 @@ const header = props => {
     classes.push(appModuleStyles.green, appModuleStyles.greenBold);
   }
   return (
-    <div>
+    <Fragment>
       <h1>{props.title}</h1>
       <button className={classes.join(" ")} onClick={props.tooglePersonHandler}>
         Show/Hide Persons
@@ -28,7 +28,7 @@ const header = props => {
       <button className={buttonColorStyle} onClick={props.toogleCarsHandler}>
         Show/Hide Cars
       </button>
-    </div>
+    </Fragment>
   );
 };
 

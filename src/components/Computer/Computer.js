@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import computerStyles from "./Computer.module.css";
 
 //This is simple React Hook Component!
@@ -30,7 +30,7 @@ const computer = () => {
     throw new Error("Something Went Wrong...!");
   };
   return (
-    <div>
+    <Fragment>
       <h3>Hello, this is simple functional(hook) component!</h3>
       <h4>
         My computer has {computerState.ramValue}
@@ -52,7 +52,7 @@ const computer = () => {
         Simulate Error
       </button>
       <hr />
-    </div>
+    </Fragment>
   );
 };
 
