@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from "react";
+import AuthContext from "../../../context/auth-context";
+import CompanyContext from "../../../context/company-context";
 import PropTypes from "prop-types";
 
 export default class Car extends Component {
@@ -6,6 +8,12 @@ export default class Car extends Component {
     super(props);
     this.titleElementRef = React.createRef();
   }
+
+  /**
+   * It is better to use our footer to display the company data,
+   * but we are just demonstrating possibility of using context without <CompanyContext.Consumer></CompanyContext.Consumer>
+   */
+  static contextType = CompanyContext;
 
   componentDidMount() {
     this.titleElementRef.current.style.color = "#edb717";
@@ -42,6 +50,15 @@ export default class Car extends Component {
     }
     return (
       <Fragment>
+        <AuthContext.Consumer>
+          {context =>
+            context.isAuthenticated ? (
+              <p style={{ color: "green" }}>Authenticated!</p>
+            ) : (
+              <p style={{ color: "red" }}>Please Log in!</p>
+            )
+          }
+        </AuthContext.Consumer>
         <h3 ref={this.titleElementRef}>
           Hello, this is simple class component!
         </h3>
@@ -53,6 +70,8 @@ export default class Car extends Component {
           I have {this.props.color} car with {this.props.hp} hp's!
         </h4>
         {childElement}
+        <p>Company Name: {this.context.companyName}</p>
+        <p>Company Owner: {this.context.companyOwner}</p>
         <hr />
       </Fragment>
     );

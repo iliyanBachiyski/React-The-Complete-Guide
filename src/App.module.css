@@ -43,6 +43,10 @@ button.green:hover {
   background-color: lightgreen;
 }
 
+.green:disabled {
+  background-color: grey;
+}
+
 @media (max-width: 1024px) {
   .App {
     width: 450px;

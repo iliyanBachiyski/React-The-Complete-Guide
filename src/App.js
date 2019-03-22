@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import Computer from "./components/Computer/Computer";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import WithClass from "./components/hoc/WithClass";
+import AuthContext from "./context/auth-context";
 import appModuleStyles from "./App.module.css";
 
 class App extends Component {
@@ -21,7 +22,8 @@ class App extends Component {
       { id: "carUniqueKey1", color: "Red", hp: 240 },
       { id: "carUniqueKey2", color: "Grey", hp: 101 },
       { id: "carUniqueKey3", color: "Blue", hp: 150 }
-    ]
+    ],
+    isAuthenticated: false
   };
 
   getPersonIndexByName = name => {
@@ -75,15 +77,26 @@ class App extends Component {
     this.setState({ persons });
   };
 
+  login = () => {
+    this.setState((prevState, props) => {
+      return {
+        isAuthenticated: !prevState.isAuthenticated
+      };
+    });
+  };
+
   render() {
     return (
       <WithClass classes={appModuleStyles.App}>
-        <Header
-          title={this.state.title}
-          tooglePersonHandler={this.tooglePersonHandler}
-          toogleCarsHandler={this.toogleCarsHandler}
-          personsLength={this.state.persons.length}
-        />
+        <AuthContext.Provider value={{ login: this.login }}>
+          <Header
+            title={this.state.title}
+            tooglePersonHandler={this.tooglePersonHandler}
+            toogleCarsHandler={this.toogleCarsHandler}
+            personsLength={this.state.persons.length}
+            showCars={this.state.showCars}
+          />
+        </AuthContext.Provider>
         <hr />
         <Persons
           showPersons={this.state.showPersons}
@@ -92,7 +105,13 @@ class App extends Component {
           changeName={this.changeNameHandler}
           deletePerson={this.deletePerson}
         />
-        <Cars showCars={this.state.showCars} cars={this.state.cars} />
+        <AuthContext.Provider
+          value={{
+            isAuthenticated: this.state.isAuthenticated
+          }}
+        >
+          <Cars showCars={this.state.showCars} cars={this.state.cars} />
+        </AuthContext.Provider>
         <ErrorBoundary>
           <Computer />
         </ErrorBoundary>

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import WithClass from "../../hoc/WithClass";
 import personStyles from "./Person.module.css";
+import Footer from "../../Footer/Footer";
 
 const person = props => {
   /**
@@ -33,6 +34,7 @@ const person = props => {
       >
         Delete Person
       </button>
+      <Footer />
     </WithClass>
   );
 };

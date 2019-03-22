@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, Fragment } from "react";
+import AuthContext from "../../context/auth-context";
 import appModuleStyles from "../../App.module.css";
 
 const header = props => {
@@ -37,6 +38,17 @@ const header = props => {
       <button className={buttonColorStyle} onClick={props.toogleCarsHandler}>
         Show/Hide Cars
       </button>
+      <AuthContext.Consumer>
+        {context => (
+          <button
+            className={appModuleStyles.green}
+            onClick={context.login}
+            disabled={!props.showCars}
+          >
+            Log in
+          </button>
+        )}
+      </AuthContext.Consumer>
     </Fragment>
   );
 };
