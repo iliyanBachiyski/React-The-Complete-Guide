@@ -22,6 +22,13 @@ const addPost = props => (
         console.log(e.target.value);
       }}
     />
+    <button
+      onClick={() => {
+        console.log("Post Adding...");
+      }}
+    >
+      Add Post
+    </button>
   </div>
 );
 
