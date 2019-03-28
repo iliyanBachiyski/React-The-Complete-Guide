@@ -7,6 +7,7 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import WithClass from "./components/hoc/WithClass";
 import AuthContext from "./context/auth-context";
 import appModuleStyles from "./App.module.css";
+import Posts from "./components/Posts/Posts";
 
 class App extends Component {
   state = {
@@ -115,6 +116,7 @@ class App extends Component {
         <ErrorBoundary>
           <Computer />
         </ErrorBoundary>
+        <Posts />
       </WithClass>
     );
   }
