@@ -1,18 +1,15 @@
 import React from "react";
-
+import classes from "./Post.module.css";
 const post = props => {
   const { post } = props;
-
   return (
-    <div className="card">
-      {/*       <h1>{post.title}</h1>
-      <p>{post.body}</p> */}
-      <h1>Title</h1>
-      <h3>Author</h3>
-      <p>Body</p>
+    <div className={["card", classes.Post].join(" ")}>
+      <h1>{post.title}</h1>
+      <h3>AuthorID: {post.ownerName}</h3>
+      <p>{post.body}</p>
       <button>Delete</button>
     </div>
   );
 };
 
-export default post;
+export default React.memo(post);

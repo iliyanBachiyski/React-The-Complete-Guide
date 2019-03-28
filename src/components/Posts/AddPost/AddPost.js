@@ -23,6 +23,7 @@ const addPost = props => (
       }}
     />
     <button
+      style={{ backgroundColor: "green" }}
       onClick={() => {
         console.log("Post Adding...");
       }}
