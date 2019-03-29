@@ -6,7 +6,7 @@ import axios from "axios";
 class Posts extends Component {
   state = {
     posts: [],
-    users: {}
+    errorMessage: null
   };
 
   componentDidMount() {
@@ -25,19 +25,35 @@ class Posts extends Component {
               }
             });
         });
+      })
+      .catch(err => {
+        this.setState({ errorMessage: "Unable to load posts!!" });
       });
   }
+
+  deletePost = postId => {
+    let updatedPosts = this.state.posts;
+    updatedPosts = updatedPosts.filter(post => {
+      return post.id !== postId;
+    });
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+      .then(response => {
+        this.setState({ posts: updatedPosts });
+        console.log(response);
+      });
+  };
   render() {
+    let posts = this.state.posts.map(post => (
+      <Post key={post.id} post={post} deletePost={this.deletePost} />
+    ));
+    if (this.state.errorMessage) {
+      posts = <div style={{ color: "red" }}>{this.state.errorMessage}</div>;
+    }
     return (
       <div className="card">
         <AddPost />
-        {this.state.posts.map(post => (
-          <Post
-            key={post.id}
-            post={post}
-            user={this.state.users[post.userId]}
-          />
-        ))}
+        {posts}
       </div>
     );
   }

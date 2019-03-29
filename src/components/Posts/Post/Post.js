@@ -7,7 +7,7 @@ const post = props => {
       <h1>{post.title}</h1>
       <h3>AuthorID: {post.ownerName}</h3>
       <p>{post.body}</p>
-      <button>Delete</button>
+      <button onClick={() => props.deletePost(post.id)}>Delete</button>
     </div>
   );
 };
