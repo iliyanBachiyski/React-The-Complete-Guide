@@ -3,6 +3,33 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import axios from "axios";
+
+/**
+ * We have to pass requestConf/response/error down,
+ * to be sure that the components which are using axios will receive the information
+ */
+axios.interceptors.request.use(
+  requestConf => {
+    console.log("Request configuration from Interceptor: ", requestConf);
+    return requestConf;
+  },
+  error => {
+    console.log("Request error from Interceptor: ", error);
+    return Promise.reject(error);
+  }
+);
+
+axios.interceptors.response.use(
+  response => {
+    console.log("Response from Interceptor: ", response);
+    return response;
+  },
+  error => {
+    console.log("Response error from Interceptor: ", error);
+    Promise.reject(error);
+  }
+);
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
