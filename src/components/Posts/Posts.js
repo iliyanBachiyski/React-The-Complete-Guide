@@ -11,19 +11,17 @@ class Posts extends Component {
 
   componentDidMount() {
     axios
-      .get("https://jsonplaceholder.typicode.com/posts")
+      .get("/posts")
       .then(response => response.data)
       .then(data => {
         const posts = data;
         posts.forEach((post, idx) => {
-          axios
-            .get(`https://jsonplaceholder.typicode.com/users/${post.userId}`)
-            .then(response => {
-              post.ownerName = response.data.name;
-              if (idx === posts.length - 1) {
-                this.setState({ posts });
-              }
-            });
+          axios.get(`/users/${post.userId}`).then(response => {
+            post.ownerName = response.data.name;
+            if (idx === posts.length - 1) {
+              this.setState({ posts });
+            }
+          });
         });
       })
       .catch(err => {
@@ -36,12 +34,10 @@ class Posts extends Component {
     updatedPosts = updatedPosts.filter(post => {
       return post.id !== postId;
     });
-    axios
-      .delete(`https://jsonplaceholder.typicode.com/posts/${postId}`)
-      .then(response => {
-        this.setState({ posts: updatedPosts });
-        console.log(response);
-      });
+    axios.delete(`/posts/${postId}`).then(response => {
+      this.setState({ posts: updatedPosts });
+      console.log(response);
+    });
   };
   render() {
     let posts = this.state.posts.map(post => (

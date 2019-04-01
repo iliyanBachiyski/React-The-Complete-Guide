@@ -5,6 +5,10 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import axios from "axios";
 
+axios.defaults.baseURL = "https://jsonplaceholder.typicode.com";
+axios.defaults.headers.authorization = "SOME TOKEN";
+axios.defaults.headers.post["Content-Type"] = "application/json";
+
 /**
  * We have to pass requestConf/response/error down,
  * to be sure that the components which are using axios will receive the information
