@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PostInput from "./PostInput/PostInput";
-import axios from "axios";
+import axios from "../../../axiosInstance";
 
 class AddPost extends Component {
   state = {
