@@ -29,7 +29,7 @@ const header = props => {
   return (
     <Fragment>
       <h1>{props.title}</h1>
-      <Navigation />
+      <Navigation {...props.location} />
       <button
         className={classes.join(" ")}
         onClick={props.tooglePersonHandler}

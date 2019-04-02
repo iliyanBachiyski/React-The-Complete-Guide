@@ -1,24 +1,43 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import classes from "./Navigation.module.css";
 
-const navigation = () => {
+const navigation = props => {
   return (
     <div>
       <nav>
         <ul>
           <li>
-            <a className={classes.Active} href="#home">
+            <Link
+              className={props.pathname === "/" ? classes.Active : null}
+              to="/"
+            >
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#news">News</a>
+            <Link
+              className={props.pathname === "/cars" ? classes.Active : null}
+              to="/cars"
+            >
+              Cars
+            </Link>
           </li>
           <li>
-            <a href="#contact">Contact</a>
+            <Link
+              className={props.pathname === "/computer" ? classes.Active : null}
+              to="/computer"
+            >
+              Computer
+            </Link>
           </li>
           <li>
-            <a href="#about">About</a>
+            <Link
+              className={props.pathname === "/posts" ? classes.Active : null}
+              to="/posts"
+            >
+              Posts
+            </Link>
           </li>
         </ul>
       </nav>

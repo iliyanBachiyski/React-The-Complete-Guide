@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 import Persons from "./components/Persons/Persons";
 import Cars from "./components/Cars/Cars";
 import Header from "./components/Header/Header";
@@ -8,6 +9,7 @@ import WithClass from "./components/hoc/WithClass";
 import AuthContext from "./context/auth-context";
 import appModuleStyles from "./App.module.css";
 import Posts from "./components/Posts/Posts";
+import Footer from "./components/Footer/Footer";
 
 class App extends Component {
   state = {
@@ -89,34 +91,62 @@ class App extends Component {
   render() {
     return (
       <WithClass classes={appModuleStyles.App}>
-        <AuthContext.Provider value={{ login: this.login }}>
-          <Header
-            title={this.state.title}
-            tooglePersonHandler={this.tooglePersonHandler}
-            toogleCarsHandler={this.toogleCarsHandler}
-            personsLength={this.state.persons.length}
-            showCars={this.state.showCars}
+        <BrowserRouter>
+          <Route
+            path="/"
+            render={props => (
+              <AuthContext.Provider value={{ login: this.login }}>
+                <Header
+                  {...props}
+                  title={this.state.title}
+                  tooglePersonHandler={this.tooglePersonHandler}
+                  toogleCarsHandler={this.toogleCarsHandler}
+                  personsLength={this.state.persons.length}
+                  showCars={this.state.showCars}
+                />
+              </AuthContext.Provider>
+            )}
           />
-        </AuthContext.Provider>
-        <hr />
-        <Persons
-          showPersons={this.state.showPersons}
-          persons={this.state.persons}
-          increaseAge={this.increasePersonAge}
-          changeName={this.changeNameHandler}
-          deletePerson={this.deletePerson}
-        />
-        <AuthContext.Provider
-          value={{
-            isAuthenticated: this.state.isAuthenticated
-          }}
-        >
-          <Cars showCars={this.state.showCars} cars={this.state.cars} />
-        </AuthContext.Provider>
-        <ErrorBoundary>
-          <Computer />
-        </ErrorBoundary>
-        <Posts />
+          <Route
+            path="/"
+            exact
+            render={() => (
+              <Persons
+                showPersons={this.state.showPersons}
+                persons={this.state.persons}
+                increaseAge={this.increasePersonAge}
+                changeName={this.changeNameHandler}
+                deletePerson={this.deletePerson}
+              />
+            )}
+          />
+          <Route
+            path="/cars"
+            render={props => (
+              <AuthContext.Provider
+                value={{
+                  isAuthenticated: this.state.isAuthenticated
+                }}
+              >
+                <Cars
+                  {...props}
+                  showCars={this.state.showCars}
+                  cars={this.state.cars}
+                />
+              </AuthContext.Provider>
+            )}
+          />
+          <Route
+            path="/computer"
+            render={() => (
+              <ErrorBoundary>
+                <Computer />
+              </ErrorBoundary>
+            )}
+          />
+          <Route path="/posts" render={() => <Posts />} />
+        </BrowserRouter>
+        <Footer />
       </WithClass>
     );
   }

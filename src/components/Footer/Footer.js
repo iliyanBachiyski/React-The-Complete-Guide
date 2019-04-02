@@ -4,7 +4,7 @@ import CompanyContext from "../../context/company-context";
 const footer = props => {
   const context = useContext(CompanyContext);
   return (
-    <div>
+    <div style={{ backgroundColor: "#4caf50", color: "white" }}>
       <p>Company Name: {context.companyName}</p>
       <p>Company Owner: {context.companyOwner}</p>
     </div>
