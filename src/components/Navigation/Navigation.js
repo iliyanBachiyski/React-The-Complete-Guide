@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import classes from "./Navigation.module.css";
 
 const navigation = props => {
@@ -9,7 +9,9 @@ const navigation = props => {
         <ul>
           <li>
             <Link
-              className={props.pathname === "/" ? classes.Active : null}
+              className={
+                props.location.pathname === "/" ? classes.Active : null
+              }
               to="/"
             >
               Home
@@ -17,7 +19,9 @@ const navigation = props => {
           </li>
           <li>
             <Link
-              className={props.pathname === "/cars" ? classes.Active : null}
+              className={
+                props.location.pathname === "/cars" ? classes.Active : null
+              }
               to="/cars"
             >
               Cars
@@ -25,7 +29,9 @@ const navigation = props => {
           </li>
           <li>
             <Link
-              className={props.pathname === "/computer" ? classes.Active : null}
+              className={
+                props.location.pathname === "/computer" ? classes.Active : null
+              }
               to="/computer"
             >
               Computer
@@ -33,7 +39,9 @@ const navigation = props => {
           </li>
           <li>
             <Link
-              className={props.pathname === "/posts" ? classes.Active : null}
+              className={
+                props.location.pathname === "/posts" ? classes.Active : null
+              }
               to="/posts"
             >
               Posts
@@ -45,4 +53,4 @@ const navigation = props => {
   );
 };
 
-export default navigation;
+export default withRouter(navigation);

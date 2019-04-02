@@ -92,21 +92,15 @@ class App extends Component {
     return (
       <WithClass classes={appModuleStyles.App}>
         <BrowserRouter>
-          <Route
-            path="/"
-            render={props => (
-              <AuthContext.Provider value={{ login: this.login }}>
-                <Header
-                  {...props}
-                  title={this.state.title}
-                  tooglePersonHandler={this.tooglePersonHandler}
-                  toogleCarsHandler={this.toogleCarsHandler}
-                  personsLength={this.state.persons.length}
-                  showCars={this.state.showCars}
-                />
-              </AuthContext.Provider>
-            )}
-          />
+          <AuthContext.Provider value={{ login: this.login }}>
+            <Header
+              title={this.state.title}
+              tooglePersonHandler={this.tooglePersonHandler}
+              toogleCarsHandler={this.toogleCarsHandler}
+              personsLength={this.state.persons.length}
+              showCars={this.state.showCars}
+            />
+          </AuthContext.Provider>
           <Route
             path="/"
             exact
