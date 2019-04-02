@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, Fragment } from "react";
 import AuthContext from "../../context/auth-context";
+import Navigation from "../Navigation/Navigation";
 import appModuleStyles from "../../App.module.css";
 
 const header = props => {
@@ -28,6 +29,7 @@ const header = props => {
   return (
     <Fragment>
       <h1>{props.title}</h1>
+      <Navigation />
       <button
         className={classes.join(" ")}
         onClick={props.tooglePersonHandler}
