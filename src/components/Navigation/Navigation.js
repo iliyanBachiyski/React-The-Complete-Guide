@@ -1,51 +1,31 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import classes from "./Navigation.module.css";
 
-const navigation = props => {
+const navigation = () => {
   return (
     <div>
       <nav>
         <ul>
           <li>
-            <Link
-              className={
-                props.location.pathname === "/" ? classes.Active : null
-              }
-              to="/"
-            >
+            <NavLink activeClassName={classes.Active} to="/" exact>
               Home
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
-              className={
-                props.location.pathname === "/cars" ? classes.Active : null
-              }
-              to="/cars"
-            >
+            <NavLink activeClassName={classes.Active} to="/cars">
               Cars
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
-              className={
-                props.location.pathname === "/computer" ? classes.Active : null
-              }
-              to="/computer"
-            >
+            <NavLink activeClassName={classes.Active} to="/computer">
               Computer
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
-              className={
-                props.location.pathname === "/posts" ? classes.Active : null
-              }
-              to="/posts"
-            >
+            <NavLink activeClassName={classes.Active} to="/posts">
               Posts
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </nav>
