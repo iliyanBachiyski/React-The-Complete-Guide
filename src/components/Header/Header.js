@@ -2,6 +2,7 @@ import React, { useEffect, useRef, Fragment } from "react";
 import AuthContext from "../../context/auth-context";
 import Navigation from "../Navigation/Navigation";
 import appModuleStyles from "../../App.module.css";
+import { withRouter } from "react-router-dom";
 
 const header = props => {
   const personButtonRef = useRef(null);
@@ -28,16 +29,21 @@ const header = props => {
   }
   return (
     <Fragment>
-      <Navigation {...props.location} />
+      <Navigation />
       <h1>{props.title}</h1>
       <button
         className={classes.join(" ")}
         onClick={props.tooglePersonHandler}
         ref={personButtonRef}
+        disabled={props.location.pathname !== "/"}
       >
         Show/Hide Persons
       </button>
-      <button className={buttonColorStyle} onClick={props.toogleCarsHandler}>
+      <button
+        className={buttonColorStyle}
+        onClick={props.toogleCarsHandler}
+        disabled={props.location.pathname !== "/cars"}
+      >
         Show/Hide Cars
       </button>
       <AuthContext.Consumer>
@@ -45,7 +51,7 @@ const header = props => {
           <button
             className={appModuleStyles.green}
             onClick={context.login}
-            disabled={!props.showCars}
+            disabled={!props.showCars || props.location.pathname !== "/cars"}
           >
             Log in
           </button>
@@ -60,4 +66,4 @@ const header = props => {
  * Into Class-based component this optimization can be implement in shouldComponentUpdate() method
  * It will be re-renderd only the props get changed.
  */
-export default React.memo(header);
+export default withRouter(React.memo(header));
