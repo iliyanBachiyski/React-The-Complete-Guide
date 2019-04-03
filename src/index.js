@@ -15,22 +15,22 @@ axios.defaults.headers.post["Content-Type"] = "application/json";
  */
 axios.interceptors.request.use(
   requestConf => {
-    console.log("Request configuration from Interceptor: ", requestConf);
+    // console.log("Request configuration from Interceptor: ", requestConf);
     return requestConf;
   },
   error => {
-    console.log("Request error from Interceptor: ", error);
+    // console.log("Request error from Interceptor: ", error);
     return Promise.reject(error);
   }
 );
 
 axios.interceptors.response.use(
   response => {
-    console.log("Response from Interceptor: ", response);
+    // console.log("Response from Interceptor: ", response);
     return response;
   },
   error => {
-    console.log("Response error from Interceptor: ", error);
+    // console.log("Response error from Interceptor: ", error);
     Promise.reject(error);
   }
 );

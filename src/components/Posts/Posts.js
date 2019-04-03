@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Post from "./Post/Post";
 import AddPost from "./AddPost/AddPost";
+import Spinner from "../Spinner/Spinner";
 import axios from "axios";
 
 class Posts extends Component {
@@ -52,6 +53,9 @@ class Posts extends Component {
         viewPost={this.viewPostHandler}
       />
     ));
+    if (this.state.posts.length === 0) {
+      posts = <Spinner />;
+    }
     if (this.state.errorMessage) {
       posts = <div style={{ color: "red" }}>{this.state.errorMessage}</div>;
     }

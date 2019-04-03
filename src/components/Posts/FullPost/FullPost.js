@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import classes from "./FullPost.module.css";
+import Spinner from "../../Spinner/Spinner";
+
 class FullPost extends Component {
   state = {
     post: null,
@@ -19,7 +20,7 @@ class FullPost extends Component {
       .catch(err => this.setState({ error: err }));
   }
   render() {
-    let post = <div className={classes.Loader}>Loading...</div>;
+    let post = <Spinner />;
     if (this.state.post) {
       post = (
         <div className="card">
