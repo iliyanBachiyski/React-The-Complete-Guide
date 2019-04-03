@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import Person from "./Person/Person";
+import React, { useEffect, Suspense } from "react";
+
+const Person = React.lazy(() => import("./Person/Person"));
 
 const persons = props => {
   /**
@@ -31,7 +32,11 @@ const persons = props => {
   ) : (
     <p>Press the button to Show/Hide persons!</p>
   );
-  return <div>{persons}</div>;
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>{persons}</Suspense>
+    </div>
+  );
 };
 
 export default persons;
