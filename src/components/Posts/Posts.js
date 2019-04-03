@@ -2,9 +2,13 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Post from "./Post/Post";
 import AddPost from "./AddPost/AddPost";
-import FullPost from "./FullPost/FullPost";
 import Spinner from "../Spinner/Spinner";
+import asyncFullPost from "../hoc/asyncFullPost";
 import axios from "axios";
+
+const AsyncFullPost = asyncFullPost(() => {
+  return import("./FullPost/FullPost");
+});
 
 class Posts extends Component {
   state = {
@@ -65,7 +69,7 @@ class Posts extends Component {
       <div className="card">
         <Route
           path={`${this.props.match.url}/:id`}
-          render={props => <FullPost {...props} />}
+          render={props => <AsyncFullPost {...props} />}
         />
         <AddPost />
         {posts}
