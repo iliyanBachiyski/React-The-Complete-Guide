@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Persons from "./components/Persons/Persons";
 import Cars from "./components/Cars/Cars";
 import Header from "./components/Header/Header";
@@ -102,45 +102,50 @@ class App extends Component {
               showCars={this.state.showCars}
             />
           </AuthContext.Provider>
-          <Route
-            path="/"
-            exact
-            render={() => (
-              <Persons
-                showPersons={this.state.showPersons}
-                persons={this.state.persons}
-                increaseAge={this.increasePersonAge}
-                changeName={this.changeNameHandler}
-                deletePerson={this.deletePerson}
-              />
-            )}
-          />
-          <Route
-            path="/cars"
-            render={props => (
-              <AuthContext.Provider
-                value={{
-                  isAuthenticated: this.state.isAuthenticated
-                }}
-              >
-                <Cars
-                  {...props}
-                  showCars={this.state.showCars}
-                  cars={this.state.cars}
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={() => (
+                <Persons
+                  showPersons={this.state.showPersons}
+                  persons={this.state.persons}
+                  increaseAge={this.increasePersonAge}
+                  changeName={this.changeNameHandler}
+                  deletePerson={this.deletePerson}
                 />
-              </AuthContext.Provider>
-            )}
-          />
-          <Route
-            path="/computer"
-            render={() => (
-              <ErrorBoundary>
-                <Computer />
-              </ErrorBoundary>
-            )}
-          />
-          <Route path="/posts" exact render={props => <Posts {...props} />} />
-          <Route path="/posts/:id" render={props => <FullPost {...props} />} />
+              )}
+            />
+            <Route
+              path="/cars"
+              render={props => (
+                <AuthContext.Provider
+                  value={{
+                    isAuthenticated: this.state.isAuthenticated
+                  }}
+                >
+                  <Cars
+                    {...props}
+                    showCars={this.state.showCars}
+                    cars={this.state.cars}
+                  />
+                </AuthContext.Provider>
+              )}
+            />
+            <Route
+              path="/computer"
+              render={() => (
+                <ErrorBoundary>
+                  <Computer />
+                </ErrorBoundary>
+              )}
+            />
+            <Route path="/posts" exact render={props => <Posts {...props} />} />
+            <Route
+              path="/posts/:id"
+              render={props => <FullPost {...props} />}
+            />
+          </Switch>
         </BrowserRouter>
         <Footer />
       </WithClass>

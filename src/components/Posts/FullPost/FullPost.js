@@ -7,7 +7,6 @@ class FullPost extends Component {
     err: null
   };
   componentDidMount() {
-    console.log("Full Post Did Mount");
     axios
       .get(`/posts/${this.props.match.params.id}`)
       .then(response => {
