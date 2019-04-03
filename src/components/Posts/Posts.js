@@ -39,9 +39,18 @@ class Posts extends Component {
       console.log(response);
     });
   };
+
+  viewPostHandler = postId => {
+    this.props.history.push(`/posts/${postId}`);
+  };
   render() {
     let posts = this.state.posts.map(post => (
-      <Post key={post.id} post={post} deletePost={this.deletePost} />
+      <Post
+        key={post.id}
+        post={post}
+        deletePost={this.deletePost}
+        viewPost={this.viewPostHandler}
+      />
     ));
     if (this.state.errorMessage) {
       posts = <div style={{ color: "red" }}>{this.state.errorMessage}</div>;

@@ -9,6 +9,7 @@ import WithClass from "./components/hoc/WithClass";
 import AuthContext from "./context/auth-context";
 import appModuleStyles from "./App.module.css";
 import Posts from "./components/Posts/Posts";
+import FullPost from "./components/Posts/FullPost/FullPost";
 import Footer from "./components/Footer/Footer";
 
 class App extends Component {
@@ -138,7 +139,8 @@ class App extends Component {
               </ErrorBoundary>
             )}
           />
-          <Route path="/posts" render={() => <Posts />} />
+          <Route path="/posts" exact render={props => <Posts {...props} />} />
+          <Route path="/posts/:id" render={props => <FullPost {...props} />} />
         </BrowserRouter>
         <Footer />
       </WithClass>
