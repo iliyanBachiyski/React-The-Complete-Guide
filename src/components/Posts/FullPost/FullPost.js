@@ -8,17 +8,29 @@ class FullPost extends Component {
     err: null
   };
   componentDidMount() {
-    axios
-      .get(`/posts/${this.props.match.params.id}`)
-      .then(response => {
-        const post = response.data;
-        axios.get(`/users/${post.userId}`).then(userInfo => {
-          post.ownerName = userInfo.data.name;
-          this.setState({ post });
-        });
-      })
-      .catch(err => this.setState({ error: err }));
+    this.loadData();
   }
+
+  componentDidUpdate() {
+    this.loadData();
+  }
+
+  loadData = () => {
+    const parsedParam = +this.props.match.params.id;
+    if (!this.state.post || this.state.post.id !== parsedParam) {
+      axios
+        .get(`/posts/${this.props.match.params.id}`)
+        .then(response => {
+          const post = response.data;
+          axios.get(`/users/${post.userId}`).then(userInfo => {
+            post.ownerName = userInfo.data.name;
+            this.setState({ post });
+          });
+        })
+        .catch(err => this.setState({ error: err }));
+    }
+  };
+
   render() {
     let post = <Spinner />;
     if (this.state.post) {

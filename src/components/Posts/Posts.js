@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { Route } from "react-router-dom";
 import Post from "./Post/Post";
 import AddPost from "./AddPost/AddPost";
+import FullPost from "./FullPost/FullPost";
 import Spinner from "../Spinner/Spinner";
 import axios from "axios";
 
@@ -61,6 +63,10 @@ class Posts extends Component {
     }
     return (
       <div className="card">
+        <Route
+          path={`${this.props.match.url}/:id`}
+          render={props => <FullPost {...props} />}
+        />
         <AddPost />
         {posts}
       </div>
