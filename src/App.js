@@ -140,6 +140,7 @@ class App extends Component {
               )}
             />
             <Route path="/posts" render={props => <Posts {...props} />} />
+            <Route render={() => <div>Page Not Found!</div>} />
           </Switch>
         </BrowserRouter>
         <Footer />
