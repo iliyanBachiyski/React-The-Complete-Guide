@@ -1,9 +1,14 @@
 import React from "react";
+import classes from "./PostInput.module.css";
 
 const postInput = props => (
-  <div>
-    <h5>{props.title}</h5>
-    <input type="text" onChange={props.textChangeHandler} />
+  <div className={classes.Input}>
+    <label className={classes.Label}>{props.title}</label>
+    <input
+      {...props.config}
+      className={classes.InputElement}
+      onChange={props.textChangeHandler}
+    />
   </div>
 );
 
