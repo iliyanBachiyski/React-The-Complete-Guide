@@ -11,6 +11,12 @@ import appModuleStyles from "./App.module.css";
 import Posts from "./components/Posts/Posts";
 import Footer from "./components/Footer/Footer";
 import { connect } from "react-redux";
+import {
+  INCREASE_AGE_ACTION,
+  TOOGLE_PERSONS_ACTION,
+  CHANGE_PERSON_NAME_ACTION,
+  DELETE_PERSON_ACTION
+} from "./store/actionConst";
 
 class App extends Component {
   state = {
@@ -24,47 +30,12 @@ class App extends Component {
     isAuthenticated: false
   };
 
-  getPersonIndexByName = name => {
-    const personIndex = this.props.persons.findIndex(person => {
-      return person.name === name;
-    });
-    return personIndex;
-  };
-
-  increasePersonAge = personName => {
-    const personIndex = this.getPersonIndexByName(personName);
-    if (personIndex > -1) {
-      const person = { ...this.props.persons[personIndex] };
-      person.age++;
-      const persons = [...this.props.persons];
-      persons[personIndex] = person;
-      this.setState({ persons });
-    }
-  };
-
-  changeNameHandler = (event, name) => {
-    const personIndex = this.getPersonIndexByName(name);
-    if (personIndex > -1) {
-      const person = { ...this.props.persons[personIndex] };
-      person.name = event.target.value;
-      const personsArray = [...this.props.persons];
-      personsArray[personIndex] = person;
-      this.setState({ persons: personsArray });
-    }
-  };
-
   toogleCarsHandler = () => {
     this.setState((prevState, props) => {
       return {
         showCars: !prevState.showCars
       };
     });
-  };
-
-  deletePerson = index => {
-    const persons = [...this.props.persons];
-    persons.splice(index, 1);
-    this.setState({ persons });
   };
 
   login = () => {
@@ -96,9 +67,9 @@ class App extends Component {
                 <Persons
                   showPersons={this.props.showPersons}
                   persons={this.props.persons}
-                  increaseAge={this.increasePersonAge}
-                  changeName={this.changeNameHandler}
-                  deletePerson={this.deletePerson}
+                  increaseAge={this.props.onIncreasePersonAge}
+                  changeName={this.props.onChangeName}
+                  deletePerson={this.props.onDeletePerson}
                 />
               )}
             />
@@ -145,7 +116,16 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onTooglePersons: () => dispatch({ type: "TOOGLE_PERSONS" })
+    onTooglePersons: () => dispatch({ type: TOOGLE_PERSONS_ACTION }),
+    onIncreasePersonAge: personName =>
+      dispatch({ type: INCREASE_AGE_ACTION, payload: { personName } }),
+    onChangeName: (event, oldPersonName) =>
+      dispatch({
+        type: CHANGE_PERSON_NAME_ACTION,
+        payload: { event, oldPersonName }
+      }),
+    onDeletePerson: personIdx =>
+      dispatch({ type: DELETE_PERSON_ACTION, payload: { personIdx } })
   };
 };
 
