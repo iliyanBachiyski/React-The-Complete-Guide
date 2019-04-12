@@ -10,17 +10,12 @@ import AuthContext from "./context/auth-context";
 import appModuleStyles from "./App.module.css";
 import Posts from "./components/Posts/Posts";
 import Footer from "./components/Footer/Footer";
+import { connect } from "react-redux";
 
 class App extends Component {
   state = {
-    showPersons: false,
     showCars: false,
     title: "Hello from App Component!",
-    persons: [
-      { id: "personUniqueKey1", name: "Iliyan", age: 24 },
-      { id: "personUniqueKey2", name: "Veronika", age: 23 },
-      { id: "personUniqueKey3", name: "Ivelin", age: 22 }
-    ],
     cars: [
       { id: "carUniqueKey1", color: "Red", hp: 240 },
       { id: "carUniqueKey2", color: "Grey", hp: 101 },
@@ -30,7 +25,7 @@ class App extends Component {
   };
 
   getPersonIndexByName = name => {
-    const personIndex = this.state.persons.findIndex(person => {
+    const personIndex = this.props.persons.findIndex(person => {
       return person.name === name;
     });
     return personIndex;
@@ -39,9 +34,9 @@ class App extends Component {
   increasePersonAge = personName => {
     const personIndex = this.getPersonIndexByName(personName);
     if (personIndex > -1) {
-      const person = { ...this.state.persons[personIndex] };
+      const person = { ...this.props.persons[personIndex] };
       person.age++;
-      const persons = [...this.state.persons];
+      const persons = [...this.props.persons];
       persons[personIndex] = person;
       this.setState({ persons });
     }
@@ -50,20 +45,12 @@ class App extends Component {
   changeNameHandler = (event, name) => {
     const personIndex = this.getPersonIndexByName(name);
     if (personIndex > -1) {
-      const person = { ...this.state.persons[personIndex] };
+      const person = { ...this.props.persons[personIndex] };
       person.name = event.target.value;
-      const personsArray = [...this.state.persons];
+      const personsArray = [...this.props.persons];
       personsArray[personIndex] = person;
       this.setState({ persons: personsArray });
     }
-  };
-
-  tooglePersonHandler = () => {
-    this.setState((prevState, props) => {
-      return {
-        showPersons: !prevState.showPersons
-      };
-    });
   };
 
   toogleCarsHandler = () => {
@@ -75,7 +62,7 @@ class App extends Component {
   };
 
   deletePerson = index => {
-    const persons = [...this.state.persons];
+    const persons = [...this.props.persons];
     persons.splice(index, 1);
     this.setState({ persons });
   };
@@ -95,9 +82,9 @@ class App extends Component {
           <AuthContext.Provider value={{ login: this.login }}>
             <Header
               title={this.state.title}
-              tooglePersonHandler={this.tooglePersonHandler}
+              tooglePersonHandler={this.props.onTooglePersons}
               toogleCarsHandler={this.toogleCarsHandler}
-              personsLength={this.state.persons.length}
+              personsLength={this.props.persons.length}
               showCars={this.state.showCars}
             />
           </AuthContext.Provider>
@@ -107,8 +94,8 @@ class App extends Component {
               exact
               render={() => (
                 <Persons
-                  showPersons={this.state.showPersons}
-                  persons={this.state.persons}
+                  showPersons={this.props.showPersons}
+                  persons={this.props.persons}
                   increaseAge={this.increasePersonAge}
                   changeName={this.changeNameHandler}
                   deletePerson={this.deletePerson}
@@ -149,4 +136,20 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    persons: state.persons,
+    showPersons: state.showPersons
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onTooglePersons: () => dispatch({ type: "TOOGLE_PERSONS" })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
