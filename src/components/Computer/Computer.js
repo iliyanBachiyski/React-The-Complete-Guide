@@ -1,54 +1,32 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment } from "react";
+import mapDispatchToProps from "../../store/actions/computerActions/mapDispatchToProps";
+import { connect } from "react-redux";
 import computerStyles from "./Computer.module.css";
 
-//This is simple React Hook Component!
-//We are using internal state here only to show this possibility!
-
-const computer = () => {
-  const initialRAMValue = 128;
-  const initialRAMExtension = "MB";
-  const [computerState, setComputerState] = useState({
-    ramValue: initialRAMValue,
-    ramExtension: initialRAMExtension
-  });
-
-  const increaseRAMHandler = () => {
-    setComputerState({
-      ...computerState,
-      ramValue: computerState.ramValue * 2
-    });
-  };
-
-  const resetRAMHandler = () => {
-    setComputerState({
-      ...computerState,
-      ramValue: initialRAMValue
-    });
-  };
-
-  const simulateError = () => {
-    throw new Error("Something Went Wrong...!");
-  };
+const computer = props => {
   return (
     <Fragment>
       <h3>Hello, this is simple functional(hook) component!</h3>
       <h4>
-        My computer has {computerState.ramValue}
-        {computerState.ramExtension} RAM!
+        My computer has {props.ramValue}
+        {props.ramExtension} RAM!
       </h4>
       <button
         className={computerStyles.computerButton}
-        onClick={increaseRAMHandler}
+        onClick={props.increaseRAMHandler}
       >
         Increase RAM
       </button>
       <button
         className={computerStyles.computerButton}
-        onClick={resetRAMHandler}
+        onClick={props.resetRAMHandler}
       >
         Reset RAM
       </button>
-      <button className={computerStyles.computerButton} onClick={simulateError}>
+      <button
+        className={computerStyles.computerButton}
+        onClick={props.simulateErrorHandler}
+      >
         Simulate Error
       </button>
       <hr />
@@ -56,4 +34,14 @@ const computer = () => {
   );
 };
 
-export default computer;
+const mapStateToProps = state => {
+  return {
+    ramValue: state.compRed.ramValue,
+    ramExtension: state.compRed.initialRAMExtension
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(computer);

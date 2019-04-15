@@ -1,6 +1,11 @@
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 import personReducer from "./reducers/personReducer";
+import computerReducer from "./reducers/computerReducer";
 
-const store = createStore(personReducer);
+const rootReducer = combineReducers({
+  personRed: personReducer,
+  compRed: computerReducer
+});
+const store = createStore(rootReducer);
 
 export default store;

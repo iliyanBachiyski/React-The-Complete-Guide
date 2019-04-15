@@ -104,8 +104,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    persons: state.persons,
-    showPersons: state.showPersons
+    persons: state.personRed.persons,
+    showPersons: state.personRed.showPersons
   };
 };
 
