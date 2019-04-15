@@ -2,7 +2,7 @@ import {
   INCREASE_RAM_ACTION,
   RESET_RAM_ACTION,
   SIMULATE_ERROR_ACTION
-} from "../../actionConst";
+} from "../actionConst";
 
 const mapDispatchToProps = dispatch => {
   return {

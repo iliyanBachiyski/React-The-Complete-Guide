@@ -3,7 +3,7 @@ import {
   TOOGLE_PERSONS_ACTION,
   CHANGE_PERSON_NAME_ACTION,
   DELETE_PERSON_ACTION
-} from "../../actionConst";
+} from "../actionConst";
 
 const mapDispatchToProps = dispatch => {
   return {
