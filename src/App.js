@@ -11,12 +11,7 @@ import appModuleStyles from "./App.module.css";
 import Posts from "./components/Posts/Posts";
 import Footer from "./components/Footer/Footer";
 import { connect } from "react-redux";
-import {
-  INCREASE_AGE_ACTION,
-  TOOGLE_PERSONS_ACTION,
-  CHANGE_PERSON_NAME_ACTION,
-  DELETE_PERSON_ACTION
-} from "./store/actionConst";
+import mapDispatchToProps from "./store/actions/personActions/mapDispatchToProps";
 
 class App extends Component {
   state = {
@@ -111,21 +106,6 @@ const mapStateToProps = state => {
   return {
     persons: state.persons,
     showPersons: state.showPersons
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onTooglePersons: () => dispatch({ type: TOOGLE_PERSONS_ACTION }),
-    onIncreasePersonAge: personName =>
-      dispatch({ type: INCREASE_AGE_ACTION, payload: { personName } }),
-    onChangeName: (event, oldPersonName) =>
-      dispatch({
-        type: CHANGE_PERSON_NAME_ACTION,
-        payload: { event, oldPersonName }
-      }),
-    onDeletePerson: personIdx =>
-      dispatch({ type: DELETE_PERSON_ACTION, payload: { personIdx } })
   };
 };
 

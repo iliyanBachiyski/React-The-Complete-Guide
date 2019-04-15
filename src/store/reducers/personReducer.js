@@ -30,7 +30,7 @@ const changeName = (currentPersons, event, oldPersonName) => {
   if (personIndex > -1) {
     const person = { ...currentPersons[personIndex] };
     person.name = event.target.value;
-    const personsArray = [...currentPersons];
+    const personsArray = currentPersons.filter(person => true);
     personsArray[personIndex] = person;
     return personsArray;
   }
