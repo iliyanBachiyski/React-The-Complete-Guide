@@ -3,7 +3,7 @@ import { fetchPostsAsync, deletePostAsync } from "../actions";
 const mapDispathToProps = dispatch => {
   return {
     getPosts: () => dispatch(fetchPostsAsync()),
-    deletePost: (posts, postId) => dispatch(deletePostAsync(posts, postId))
+    deletePost: postId => dispatch(deletePostAsync(postId))
   };
 };
 

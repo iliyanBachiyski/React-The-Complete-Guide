@@ -17,8 +17,12 @@ const postsReducer = (state = initialState, action) => {
       };
       break;
     case DELETE_POSTS_ACTION:
+      let updatedPosts = state.posts;
+      updatedPosts = updatedPosts.filter(post => {
+        return post.id !== action.payload.postId;
+      });
       newState = {
-        posts: action.payload.posts
+        posts: updatedPosts
       };
       break;
     case FETCHING_ERROR_ACTION:

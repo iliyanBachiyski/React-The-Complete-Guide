@@ -22,7 +22,7 @@ class Posts extends Component {
   }
 
   deletePost = postId => {
-    this.props.deletePost(this.props.posts, postId);
+    this.props.deletePost(postId);
   };
 
   viewPostHandler = postId => {

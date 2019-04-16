@@ -72,16 +72,12 @@ const fetchPosts = data => {
   };
 };
 
-export const deletePostAsync = (posts, postId) => {
+export const deletePostAsync = postId => {
   return dispatch => {
-    let updatedPosts = posts;
-    updatedPosts = updatedPosts.filter(post => {
-      return post.id !== postId;
-    });
     axios
       .delete(`/posts/${postId}`)
       .then(response => {
-        dispatch(deletePost(updatedPosts));
+        dispatch(deletePost(postId));
         console.log(response);
       })
       .catch(err => {
@@ -91,11 +87,11 @@ export const deletePostAsync = (posts, postId) => {
   };
 };
 
-const deletePost = updatedPosts => {
+const deletePost = postId => {
   return {
     type: actionTypes.DELETE_POSTS_ACTION,
     payload: {
-      posts: updatedPosts
+      postId
     }
   };
 };
