@@ -4,7 +4,8 @@ import Post from "./Post/Post";
 import AddPost from "./AddPost/AddPost";
 import Spinner from "../Spinner/Spinner";
 import asyncFullPost from "../hoc/asyncFullPost";
-import axios from "axios";
+import { connect } from "react-redux";
+import mapDispatchToProps from "../../store/actions/postActions/mapDispatchToProps";
 
 const AsyncFullPost = asyncFullPost(() => {
   return import("./FullPost/FullPost");
@@ -17,41 +18,18 @@ class Posts extends Component {
   };
 
   componentDidMount() {
-    axios
-      .get("/posts")
-      .then(response => response.data)
-      .then(data => {
-        const posts = data;
-        posts.forEach((post, idx) => {
-          axios.get(`/users/${post.userId}`).then(response => {
-            post.ownerName = response.data.name;
-            if (idx === posts.length - 1) {
-              this.setState({ posts });
-            }
-          });
-        });
-      })
-      .catch(err => {
-        this.setState({ errorMessage: "Unable to load posts!!" });
-      });
+    this.props.getPosts();
   }
 
   deletePost = postId => {
-    let updatedPosts = this.state.posts;
-    updatedPosts = updatedPosts.filter(post => {
-      return post.id !== postId;
-    });
-    axios.delete(`/posts/${postId}`).then(response => {
-      this.setState({ posts: updatedPosts });
-      console.log(response);
-    });
+    this.props.deletePost(this.props.posts, postId);
   };
 
   viewPostHandler = postId => {
     this.props.history.push(`/posts/${postId}`);
   };
   render() {
-    let posts = this.state.posts.map(post => (
+    let posts = this.props.posts.map(post => (
       <Post
         key={post.id}
         post={post}
@@ -59,11 +37,11 @@ class Posts extends Component {
         viewPost={this.viewPostHandler}
       />
     ));
-    if (this.state.posts.length === 0) {
+    if (this.props.posts.length === 0) {
       posts = <Spinner />;
     }
-    if (this.state.errorMessage) {
-      posts = <div style={{ color: "red" }}>{this.state.errorMessage}</div>;
+    if (this.props.errorMessage) {
+      posts = <div style={{ color: "red" }}>{this.props.errorMessage}</div>;
     }
     return (
       <div className="card">
@@ -78,4 +56,14 @@ class Posts extends Component {
   }
 }
 
-export default Posts;
+const mapStateToProps = state => {
+  return {
+    posts: state.postRed.posts,
+    errorMessage: state.postRed.errorMessage
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Posts);

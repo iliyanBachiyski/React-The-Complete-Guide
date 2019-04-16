@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import personReducer from "./reducers/personReducer";
 import computerReducer from "./reducers/computerReducer";
+import postsReducer from "./reducers/postsReducer";
 
 const rootReducer = combineReducers({
   personRed: personReducer,
-  compRed: computerReducer
+  compRed: computerReducer,
+  postRed: postsReducer
 });
 
 const logger = store => {
