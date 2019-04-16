@@ -1,4 +1,4 @@
-import { fetchPostsAsync, deletePostAsync } from "../actionConst";
+import { fetchPostsAsync, deletePostAsync } from "../actions";
 
 const mapDispathToProps = dispatch => {
   return {

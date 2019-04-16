@@ -3,7 +3,7 @@ import {
   tooglePersons,
   changePersonName,
   deletePersonName
-} from "../actionConst";
+} from "../actions";
 
 const mapDispatchToProps = dispatch => {
   return {
