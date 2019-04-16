@@ -7,8 +7,16 @@ export const INCREASE_RAM_ACTION = "INCREASE_RAM";
 export const RESET_RAM_ACTION = "RESET_RAM";
 export const SIMULATE_ERROR_ACTION = "SIMULATE_ERROR";
 
-export const tooglePersons = () => {
+const tooglePersonCreator = () => {
   return { type: TOOGLE_PERSONS_ACTION };
+};
+
+export const tooglePersons = () => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(tooglePersonCreator());
+    }, 2000);
+  };
 };
 
 export const increaseAge = personName => {
