@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import personReducer from "./reducers/personReducer";
 import computerReducer from "./reducers/computerReducer";
 import postsReducer from "./reducers/postsReducer";
+import authReducer from "./reducers/authReducer";
 
 const rootReducer = combineReducers({
   personRed: personReducer,
   compRed: computerReducer,
-  postRed: postsReducer
+  postRed: postsReducer,
+  authRed: authReducer
 });
 
 const logger = store => {

@@ -104,3 +104,23 @@ const fetchingError = errMsg => {
     }
   };
 };
+
+export const submitAuthRequest = data => {
+  return dispatch => {
+    // Do auth request and return response
+    const response = {
+      code: 200,
+      message: "Successfully Auth!"
+    };
+    dispatch(submitAuthResponse(response));
+  };
+};
+
+const submitAuthResponse = response => {
+  return {
+    type: actionTypes.AUTH_RESPONSE_ACTION,
+    payload: {
+      response
+    }
+  };
+};
