@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import FormInput from "./FormInput/FormInput";
+import Spinner from "../Spinner/Spinner";
 import classes from "./AuthForm.module.css";
 import mapDispatchToProps from "../../store/actions/authActions/mapDispatchToProps";
 
 class AuthForm extends Component {
   state = {
     inputs: {
-      username: {
-        label: "Username",
+      email: {
+        label: "Email",
         config: {
-          name: "username",
-          placeholder: "Enter your username",
+          name: "email",
+          placeholder: "Enter your email",
           type: "text"
         },
         value: "",
@@ -66,15 +67,15 @@ class AuthForm extends Component {
   };
 
   submitSignInHandler = () => {
-    //TODO dispatch action to submit form
     this.props.submitAuthRequest({
-      username: this.state.inputs["username"].value,
+      email: this.state.inputs["email"].value,
       password: this.state.inputs["password"].value
     });
   };
 
   render() {
-    const inputs = [];
+    let inputs = [];
+    let error = null;
     for (let key in this.state.inputs) {
       const item = this.state.inputs[key];
       inputs.push(
@@ -88,9 +89,20 @@ class AuthForm extends Component {
         />
       );
     }
+    if (this.props.loading) {
+      inputs = <Spinner />;
+    }
+    if (this.props.error) {
+      error = (
+        <div>
+          <h3>{this.props.error.toString()}</h3>
+        </div>
+      );
+    }
     return (
       <div className="card">
         {inputs}
+        {error}
         <button
           disabled={!this.state.isFormValid}
           className={classes.Button}
@@ -111,7 +123,9 @@ class AuthForm extends Component {
 const mapStateToProps = state => {
   return {
     isUserAuth: state.authRed.isUserAuth,
-    message: state.authRed.message
+    message: state.authRed.message,
+    loading: state.authRed.loading,
+    error: state.authRed.error
   };
 };
 export default connect(

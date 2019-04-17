@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionConst";
+import { AUTH_URL } from "../../apiConfig";
 
 const tooglePersonCreator = () => {
   return { type: actionTypes.TOOGLE_PERSONS_ACTION };
@@ -107,18 +108,43 @@ const fetchingError = errMsg => {
 
 export const submitAuthRequest = data => {
   return dispatch => {
-    // Do auth request and return response
-    const response = {
-      code: 200,
-      message: "Successfully Auth!"
+    dispatch(submitAuthStart());
+    const authData = {
+      email: data.email,
+      password: data.password,
+      returnSecureToken: true
     };
-    dispatch(submitAuthResponse(response));
+    axios
+      .post(AUTH_URL, authData)
+      .then(response => {
+        dispatch(submitAuthSuccess(response.data));
+      })
+      .catch(err => {
+        dispatch(submitAuthError(err));
+      });
   };
 };
 
-const submitAuthResponse = response => {
+const submitAuthStart = () => {
   return {
-    type: actionTypes.AUTH_RESPONSE_ACTION,
+    type: actionTypes.AUTH_START_ACTION
+  };
+};
+
+const submitAuthError = err => {
+  return {
+    type: actionTypes.AUTH_ERROR_ACTION,
+    payload: {
+      response: {
+        error: err
+      }
+    }
+  };
+};
+
+const submitAuthSuccess = response => {
+  return {
+    type: actionTypes.AUTH_SUCCESS_ACTION,
     payload: {
       response
     }
