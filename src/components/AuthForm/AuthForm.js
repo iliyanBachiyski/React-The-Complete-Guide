@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import FormInput from "./FormInput/FormInput";
 import classes from "./AuthForm.module.css";
+import mapDispatchToProps from "../../store/actions/authActions/mapDispatchToProps";
 
-export default class AuthForm extends Component {
+class AuthForm extends Component {
   state = {
     inputs: {
       username: {
@@ -65,6 +67,10 @@ export default class AuthForm extends Component {
 
   submitSignInHandler = () => {
     //TODO dispatch action to submit form
+    this.props.submitAuthRequest({
+      username: this.state.inputs["username"].value,
+      password: this.state.inputs["password"].value
+    });
   };
 
   render() {
@@ -92,7 +98,23 @@ export default class AuthForm extends Component {
         >
           Sign Up
         </button>
+        <div>
+          <h3>Debugging Info</h3>
+          <p>Is user auth: {this.props.isUserAuth.toString()}</p>
+          <p>Message: {this.props.message}</p>
+        </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    isUserAuth: state.authRed.isUserAuth,
+    message: state.authRed.message
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AuthForm);

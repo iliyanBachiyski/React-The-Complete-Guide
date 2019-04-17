@@ -10,8 +10,9 @@ const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_RESPONSE_ACTION:
       newState = {
+        ...state,
         isUserAuth: true,
-        message: action.payload.message
+        message: action.payload.response.message
       };
       break;
     default:
