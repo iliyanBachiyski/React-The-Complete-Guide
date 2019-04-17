@@ -12,6 +12,7 @@ import Posts from "./components/Posts/Posts";
 import Footer from "./components/Footer/Footer";
 import { connect } from "react-redux";
 import mapDispatchToProps from "./store/actions/personActions/mapDispatchToProps";
+import AuthForm from "./components/AuthForm/AuthForm";
 
 class App extends Component {
   state = {
@@ -42,60 +43,66 @@ class App extends Component {
   };
 
   render() {
+    let router = (
+      <React.Fragment>
+        <AuthContext.Provider value={{ login: this.login }}>
+          <Header
+            title={this.state.title}
+            tooglePersonHandler={this.props.onTooglePersons}
+            toogleCarsHandler={this.toogleCarsHandler}
+            personsLength={this.props.persons.length}
+            showCars={this.state.showCars}
+          />
+        </AuthContext.Provider>
+        <Switch>
+          <Route
+            path="/"
+            exact
+            render={() => (
+              <Persons
+                showPersons={this.props.showPersons}
+                persons={this.props.persons}
+                increaseAge={this.props.onIncreasePersonAge}
+                changeName={this.props.onChangeName}
+                deletePerson={this.props.onDeletePerson}
+              />
+            )}
+          />
+          <Route
+            path="/cars"
+            render={props => (
+              <AuthContext.Provider
+                value={{
+                  isAuthenticated: this.state.isAuthenticated
+                }}
+              >
+                <Cars
+                  {...props}
+                  showCars={this.state.showCars}
+                  cars={this.state.cars}
+                />
+              </AuthContext.Provider>
+            )}
+          />
+          <Route
+            path="/computer"
+            render={() => (
+              <ErrorBoundary>
+                <Computer />
+              </ErrorBoundary>
+            )}
+          />
+          <Route path="/posts" render={props => <Posts {...props} />} />
+          <Route render={() => <div>Page Not Found!</div>} />
+        </Switch>
+      </React.Fragment>
+    );
+    if (!this.state.isAuthenticated) {
+      router = <AuthForm />;
+    }
     return (
       <WithClass classes={appModuleStyles.App}>
-        <BrowserRouter>
-          <AuthContext.Provider value={{ login: this.login }}>
-            <Header
-              title={this.state.title}
-              tooglePersonHandler={this.props.onTooglePersons}
-              toogleCarsHandler={this.toogleCarsHandler}
-              personsLength={this.props.persons.length}
-              showCars={this.state.showCars}
-            />
-          </AuthContext.Provider>
-          <Switch>
-            <Route
-              path="/"
-              exact
-              render={() => (
-                <Persons
-                  showPersons={this.props.showPersons}
-                  persons={this.props.persons}
-                  increaseAge={this.props.onIncreasePersonAge}
-                  changeName={this.props.onChangeName}
-                  deletePerson={this.props.onDeletePerson}
-                />
-              )}
-            />
-            <Route
-              path="/cars"
-              render={props => (
-                <AuthContext.Provider
-                  value={{
-                    isAuthenticated: this.state.isAuthenticated
-                  }}
-                >
-                  <Cars
-                    {...props}
-                    showCars={this.state.showCars}
-                    cars={this.state.cars}
-                  />
-                </AuthContext.Provider>
-              )}
-            />
-            <Route
-              path="/computer"
-              render={() => (
-                <ErrorBoundary>
-                  <Computer />
-                </ErrorBoundary>
-              )}
-            />
-            <Route path="/posts" render={props => <Posts {...props} />} />
-            <Route render={() => <div>Page Not Found!</div>} />
-          </Switch>
-        </BrowserRouter>
+        <BrowserRouter>{router}</BrowserRouter>
         <Footer />
       </WithClass>
     );
