@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, Fragment } from "react";
-import AuthContext from "../../context/auth-context";
 import Navigation from "../Navigation/Navigation";
 import appModuleStyles from "../../App.module.css";
 import { withRouter } from "react-router-dom";
@@ -46,17 +45,6 @@ const header = props => {
       >
         Show/Hide Cars
       </button>
-      <AuthContext.Consumer>
-        {context => (
-          <button
-            className={appModuleStyles.green}
-            onClick={context.login}
-            disabled={!props.showCars || props.location.pathname !== "/cars"}
-          >
-            Log in
-          </button>
-        )}
-      </AuthContext.Consumer>
     </Fragment>
   );
 };

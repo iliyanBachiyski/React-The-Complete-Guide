@@ -22,8 +22,7 @@ class App extends Component {
       { id: "carUniqueKey1", color: "Red", hp: 240 },
       { id: "carUniqueKey2", color: "Grey", hp: 101 },
       { id: "carUniqueKey3", color: "Blue", hp: 150 }
-    ],
-    isAuthenticated: false
+    ]
   };
 
   toogleCarsHandler = () => {
@@ -34,18 +33,12 @@ class App extends Component {
     });
   };
 
-  login = () => {
-    this.setState((prevState, props) => {
-      return {
-        isAuthenticated: !prevState.isAuthenticated
-      };
-    });
-  };
-
   render() {
     let router = (
       <React.Fragment>
-        <AuthContext.Provider value={{ login: this.login }}>
+        <AuthContext.Provider
+          value={{ isAuthenticated: this.props.isAuthenticated }}
+        >
           <Header
             title={this.state.title}
             tooglePersonHandler={this.props.onTooglePersons}
@@ -73,7 +66,7 @@ class App extends Component {
             render={props => (
               <AuthContext.Provider
                 value={{
-                  isAuthenticated: this.state.isAuthenticated
+                  isAuthenticated: this.props.isAuthenticated
                 }}
               >
                 <Cars
@@ -97,7 +90,7 @@ class App extends Component {
         </Switch>
       </React.Fragment>
     );
-    if (!this.state.isAuthenticated) {
+    if (!this.props.isAuthenticated) {
       router = <AuthForm />;
     }
     return (
@@ -112,7 +105,8 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     persons: state.personRed.persons,
-    showPersons: state.personRed.showPersons
+    showPersons: state.personRed.showPersons,
+    isAuthenticated: state.authRed.isUserAuth
   };
 };
 

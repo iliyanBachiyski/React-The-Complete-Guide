@@ -153,7 +153,7 @@ const submitAuthSuccess = response => {
   };
 };
 
-const expirationTimer = () => {
+export const logOutAction = () => {
   return {
     type: actionTypes.AUTH_TOKEN_EXPIRED_ACTION
   };
@@ -162,7 +162,7 @@ const expirationTimer = () => {
 const startTokenExpiratinTimer = expiresIn => {
   return dispatch => {
     setTimeout(() => {
-      dispatch(expirationTimer());
+      dispatch(logOutAction());
     }, expiresIn * 1000);
   };
 };

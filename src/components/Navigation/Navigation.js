@@ -1,8 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
+import mapDispatchToProps from "../../store/actions/authActions/mapDispatchToProps";
 import { NavLink, withRouter } from "react-router-dom";
 import classes from "./Navigation.module.css";
 
-const navigation = () => {
+const navigation = props => {
   return (
     <div>
       <nav>
@@ -27,10 +29,16 @@ const navigation = () => {
               Posts
             </NavLink>
           </li>
+          <li className={classes.LogOut}>
+            <button onClick={props.logOutRequest}>Log Out</button>
+          </li>
         </ul>
       </nav>
     </div>
   );
 };
 
-export default withRouter(navigation);
+export default connect(
+  null,
+  mapDispatchToProps
+)(withRouter(navigation));
