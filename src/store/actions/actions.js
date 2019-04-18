@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionConst";
-import { SIGN_UP_URL, SIGN_IN_URL } from "../../apiConfig";
+import { SIGN_UP_URL, SIGN_IN_URL, ORDERS_URL } from "../../apiConfig";
 
 const tooglePersonCreator = () => {
   return { type: actionTypes.TOOGLE_PERSONS_ACTION };
@@ -164,5 +164,37 @@ const startTokenExpiratinTimer = expiresIn => {
     setTimeout(() => {
       dispatch(logOutAction());
     }, expiresIn * 1000);
+  };
+};
+
+export const fetchOrdersAsync = token => {
+  return dispatch => {
+    const url = `${ORDERS_URL}${token}`;
+    axios.get(url).then(
+      response => {
+        dispatch(submitOrdersSuccess(response.data));
+      },
+      err => {
+        dispatch(submitOrdersFailed(err));
+      }
+    );
+  };
+};
+
+const submitOrdersSuccess = orders => {
+  return {
+    type: actionTypes.GET_ORDERS_ACTION,
+    payload: {
+      orders
+    }
+  };
+};
+
+const submitOrdersFailed = err => {
+  return {
+    type: actionTypes.GET_ORDERS_FAILED_ACTION,
+    payload: {
+      error: err
+    }
   };
 };

@@ -29,6 +29,11 @@ const navigation = props => {
               Posts
             </NavLink>
           </li>
+          <li>
+            <NavLink activeClassName={classes.Active} to="/orders">
+              Orders
+            </NavLink>
+          </li>
           <li className={classes.LogOut}>
             <button onClick={props.logOutRequest}>Log Out</button>
           </li>

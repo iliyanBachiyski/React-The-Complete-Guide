@@ -13,6 +13,7 @@ import Footer from "./components/Footer/Footer";
 import { connect } from "react-redux";
 import mapDispatchToProps from "./store/actions/personActions/mapDispatchToProps";
 import AuthForm from "./components/AuthForm/AuthForm";
+import Orders from "./components/Orders/Orders";
 
 class App extends Component {
   state = {
@@ -86,6 +87,7 @@ class App extends Component {
             )}
           />
           <Route path="/posts" render={props => <Posts {...props} />} />
+          <Route path="/orders" render={props => <Orders {...props} />} />
           <Route render={() => <div>Page Not Found!</div>} />
         </Switch>
       </React.Fragment>

@@ -4,12 +4,14 @@ import personReducer from "./reducers/personReducer";
 import computerReducer from "./reducers/computerReducer";
 import postsReducer from "./reducers/postsReducer";
 import authReducer from "./reducers/authReducer";
+import orderReducer from "./reducers/orderReducer";
 
 const rootReducer = combineReducers({
   personRed: personReducer,
   compRed: computerReducer,
   postRed: postsReducer,
-  authRed: authReducer
+  authRed: authReducer,
+  orderRed: orderReducer
 });
 
 const logger = store => {
