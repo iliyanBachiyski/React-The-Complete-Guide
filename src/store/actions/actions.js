@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionConst";
-import { AUTH_URL } from "../../apiConfig";
+import { SIGN_UP_URL, SIGN_IN_URL } from "../../apiConfig";
 
 const tooglePersonCreator = () => {
   return { type: actionTypes.TOOGLE_PERSONS_ACTION };
@@ -106,7 +106,7 @@ const fetchingError = errMsg => {
   };
 };
 
-export const submitSignUpRequest = data => {
+export const submitAuthRequest = (data, isSignUp) => {
   return dispatch => {
     dispatch(submitAuthStart());
     const authData = {
@@ -114,7 +114,8 @@ export const submitSignUpRequest = data => {
       password: data.password,
       returnSecureToken: true
     };
-    axios.post(AUTH_URL, authData).then(
+    const url = isSignUp ? SIGN_UP_URL : SIGN_IN_URL;
+    axios.post(url, authData).then(
       response => {
         dispatch(submitAuthSuccess(response.data));
       },

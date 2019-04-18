@@ -71,12 +71,7 @@ class AuthForm extends Component {
       email: this.state.inputs["email"].value,
       password: this.state.inputs["password"].value
     };
-    if (this.state.isSignUpMode) {
-      this.props.submitSignUpRequest(data);
-    } else {
-      // TODO: submit signIn
-      console.log("Sign in: ", data);
-    }
+    this.props.submitAuthRequest(data, this.state.isSignUpMode);
   };
 
   switchAuthMode = () => {
