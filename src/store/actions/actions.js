@@ -118,6 +118,7 @@ export const submitAuthRequest = (data, isSignUp) => {
     axios.post(url, authData).then(
       response => {
         dispatch(submitAuthSuccess(response.data));
+        dispatch(startTokenExpiratinTimer(response.data.expiresIn));
       },
       err => {
         dispatch(submitAuthError(err));
@@ -149,5 +150,19 @@ const submitAuthSuccess = response => {
     payload: {
       response
     }
+  };
+};
+
+const expirationTimer = () => {
+  return {
+    type: actionTypes.AUTH_TOKEN_EXPIRED_ACTION
+  };
+};
+
+const startTokenExpiratinTimer = expiresIn => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(expirationTimer());
+    }, expiresIn * 1000);
   };
 };

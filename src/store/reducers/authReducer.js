@@ -36,6 +36,14 @@ const authReducer = (state = initialState, action) => {
         error: action.payload.response.error
       };
       break;
+    case actionTypes.AUTH_TOKEN_EXPIRED_ACTION:
+      newState = {
+        ...state,
+        authToken: null,
+        userId: null,
+        isUserAuth: false
+      };
+      break;
     default:
       newState = { ...state };
   }
