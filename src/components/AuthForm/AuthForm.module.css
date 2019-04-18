@@ -1,7 +1,0 @@
-.Button {
-  background-color: green;
-}
-
-.Button:disabled {
-  background-color: grey;
-}

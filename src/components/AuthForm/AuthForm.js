@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import FormInput from "./FormInput/FormInput";
 import Spinner from "../Spinner/Spinner";
-import classes from "./AuthForm.module.css";
 import mapDispatchToProps from "../../store/actions/authActions/mapDispatchToProps";
 
 class AuthForm extends Component {
@@ -105,7 +104,6 @@ class AuthForm extends Component {
         {error}
         <button
           disabled={!this.state.isFormValid}
-          className={classes.Button}
           onClick={this.submitSignInHandler}
         >
           Sign Up
