@@ -1,8 +1,8 @@
-import { submitAuthRequest } from "../actions";
+import { submitSignUpRequest } from "../actions";
 
 const mapDispatchToProps = dispatch => {
   return {
-    submitAuthRequest: data => dispatch(submitAuthRequest(data))
+    submitSignUpRequest: data => dispatch(submitSignUpRequest(data))
   };
 };
 

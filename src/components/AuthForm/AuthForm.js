@@ -30,7 +30,8 @@ class AuthForm extends Component {
         isValid: false
       }
     },
-    isFormValid: false
+    isFormValid: false,
+    isSignUpMode: true
   };
 
   inputChangeHandler = event => {
@@ -65,13 +66,26 @@ class AuthForm extends Component {
     });
   };
 
-  submitSignInHandler = () => {
-    this.props.submitAuthRequest({
+  submitHandler = () => {
+    const data = {
       email: this.state.inputs["email"].value,
       password: this.state.inputs["password"].value
-    });
+    };
+    if (this.state.isSignUpMode) {
+      this.props.submitSignUpRequest(data);
+    } else {
+      // TODO: submit signIn
+      console.log("Sign in: ", data);
+    }
   };
 
+  switchAuthMode = () => {
+    this.setState(prevState => {
+      return {
+        isSignUpMode: !prevState.isSignUpMode
+      };
+    });
+  };
   render() {
     let inputs = [];
     let error = null;
@@ -98,15 +112,17 @@ class AuthForm extends Component {
         </div>
       );
     }
+    const buttonAuthText = this.state.isSignUpMode ? "Sign Up" : "Sign In";
+    const switchToButtonText = this.state.isSignUpMode ? "Sign In" : "Sign Up";
     return (
       <div className="card">
         {inputs}
         {error}
-        <button
-          disabled={!this.state.isFormValid}
-          onClick={this.submitSignInHandler}
-        >
-          Sign Up
+        <button disabled={!this.state.isFormValid} onClick={this.submitHandler}>
+          {buttonAuthText}
+        </button>
+        <button onClick={this.switchAuthMode}>
+          Switch to {switchToButtonText}
         </button>
         <div>
           <h3>Debugging Info</h3>

@@ -106,7 +106,7 @@ const fetchingError = errMsg => {
   };
 };
 
-export const submitAuthRequest = data => {
+export const submitSignUpRequest = data => {
   return dispatch => {
     dispatch(submitAuthStart());
     const authData = {
@@ -114,14 +114,14 @@ export const submitAuthRequest = data => {
       password: data.password,
       returnSecureToken: true
     };
-    axios
-      .post(AUTH_URL, authData)
-      .then(response => {
+    axios.post(AUTH_URL, authData).then(
+      response => {
         dispatch(submitAuthSuccess(response.data));
-      })
-      .catch(err => {
+      },
+      err => {
         dispatch(submitAuthError(err));
-      });
+      }
+    );
   };
 };
 

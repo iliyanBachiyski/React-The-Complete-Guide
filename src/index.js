@@ -32,8 +32,7 @@ axios.interceptors.response.use(
     return response;
   },
   error => {
-    // console.log("Response error from Interceptor: ", error);
-    Promise.reject(error);
+    throw new Error(error.response.data.error.message);
   }
 );
 
