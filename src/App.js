@@ -15,6 +15,7 @@ import personMapDispatchToProps from "./store/actions/personActions/mapDispatchT
 import authMapDispatchToProps from "./store/actions/authActions/mapDispatchToProps";
 import AuthForm from "./components/AuthForm/AuthForm";
 import Orders from "./components/Orders/Orders";
+import { autoSignIn } from "./store/actions/actions";
 
 class App extends Component {
   state = {
@@ -26,6 +27,10 @@ class App extends Component {
       { id: "carUniqueKey3", color: "Blue", hp: 150 }
     ]
   };
+
+  componentDidMount() {
+    this.props.autoSignIn();
+  }
 
   toogleCarsHandler = () => {
     this.setState((prevState, props) => {
@@ -116,7 +121,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     ...personMapDispatchToProps(dispatch),
-    ...authMapDispatchToProps(dispatch)
+    ...authMapDispatchToProps(dispatch),
+    autoSignIn: () => dispatch(autoSignIn())
   };
 };
 

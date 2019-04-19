@@ -117,6 +117,12 @@ export const submitAuthRequest = (data, isSignUp) => {
     const url = isSignUp ? SIGN_UP_URL : SIGN_IN_URL;
     axios.post(url, authData).then(
       response => {
+        const expirationDate = new Date(
+          new Date().getTime() + response.data.expiresIn * 1000
+        );
+        localStorage.setItem("token", response.data.idToken);
+        localStorage.setItem("expirationDate", expirationDate);
+        localStorage.setItem("localId", response.data.localId);
         dispatch(submitAuthSuccess(response.data));
         dispatch(startTokenExpiratinTimer(response.data.expiresIn));
       },
@@ -154,6 +160,9 @@ const submitAuthSuccess = response => {
 };
 
 export const logOutAction = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("expirationDate");
+  localStorage.removeItem("localId");
   return {
     type: actionTypes.AUTH_TOKEN_EXPIRED_ACTION
   };
@@ -195,6 +204,27 @@ const submitOrdersFailed = err => {
     type: actionTypes.GET_ORDERS_FAILED_ACTION,
     payload: {
       error: err
+    }
+  };
+};
+
+export const autoSignIn = () => {
+  return dispatch => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      dispatch(logOutAction());
+    } else {
+      const expirationDate = new Date(localStorage.getItem("expirationDate"));
+      if (expirationDate > new Date()) {
+        const localId = localStorage.getItem("localId");
+        const data = { idToken: token, localId };
+        const newExpirationTime =
+          (expirationDate.getTime() - new Date().getTime()) / 1000;
+        dispatch(submitAuthSuccess(data));
+        dispatch(startTokenExpiratinTimer(newExpirationTime));
+      } else {
+        dispatch(logOutAction());
+      }
     }
   };
 };
