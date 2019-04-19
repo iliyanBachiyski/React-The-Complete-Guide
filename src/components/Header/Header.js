@@ -28,7 +28,7 @@ const header = props => {
   }
   return (
     <Fragment>
-      <Navigation />
+      <Navigation logOutRequest={props.logout} />
       <h1>{props.title}</h1>
       <button
         className={classes.join(" ")}

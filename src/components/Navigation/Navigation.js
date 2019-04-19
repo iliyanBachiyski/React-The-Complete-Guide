@@ -1,6 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
-import mapDispatchToProps from "../../store/actions/authActions/mapDispatchToProps";
 import { NavLink, withRouter } from "react-router-dom";
 import classes from "./Navigation.module.css";
 
@@ -43,7 +41,4 @@ const navigation = props => {
   );
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(withRouter(navigation));
+export default withRouter(navigation);

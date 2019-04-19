@@ -11,7 +11,8 @@ import appModuleStyles from "./App.module.css";
 import Posts from "./components/Posts/Posts";
 import Footer from "./components/Footer/Footer";
 import { connect } from "react-redux";
-import mapDispatchToProps from "./store/actions/personActions/mapDispatchToProps";
+import personMapDispatchToProps from "./store/actions/personActions/mapDispatchToProps";
+import authMapDispatchToProps from "./store/actions/authActions/mapDispatchToProps";
 import AuthForm from "./components/AuthForm/AuthForm";
 import Orders from "./components/Orders/Orders";
 
@@ -33,7 +34,6 @@ class App extends Component {
       };
     });
   };
-
   render() {
     let router = (
       <React.Fragment>
@@ -46,6 +46,7 @@ class App extends Component {
             toogleCarsHandler={this.toogleCarsHandler}
             personsLength={this.props.persons.length}
             showCars={this.state.showCars}
+            logout={this.props.logOutRequest}
           />
         </AuthContext.Provider>
         <Switch>
@@ -109,6 +110,13 @@ const mapStateToProps = state => {
     persons: state.personRed.persons,
     showPersons: state.personRed.showPersons,
     isAuthenticated: state.authRed.isUserAuth
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    ...personMapDispatchToProps(dispatch),
+    ...authMapDispatchToProps(dispatch)
   };
 };
 
