@@ -2,7 +2,7 @@ import { fetchOrdersAsync } from "../actions";
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrders: token => dispatch(fetchOrdersAsync(token))
+    fetchOrders: (token, userId) => dispatch(fetchOrdersAsync(token, userId))
   };
 };
 

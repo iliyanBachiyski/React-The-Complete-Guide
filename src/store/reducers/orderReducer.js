@@ -1,7 +1,7 @@
 import * as actionTypes from "../actions/actionConst";
 
 const initialState = {
-  orders: [],
+  orders: null,
   error: null
 };
 

@@ -176,9 +176,9 @@ const startTokenExpiratinTimer = expiresIn => {
   };
 };
 
-export const fetchOrdersAsync = token => {
+export const fetchOrdersAsync = (token, userId) => {
   return dispatch => {
-    const url = `${ORDERS_URL}${token}`;
+    const url = `${ORDERS_URL}${token}&orderBy="userId"&equalTo="${userId}"`;
     axios.get(url).then(
       response => {
         dispatch(submitOrdersSuccess(response.data));
