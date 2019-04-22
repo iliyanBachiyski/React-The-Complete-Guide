@@ -1,21 +1,24 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Persons from "./components/Persons/Persons";
-import Cars from "./components/Cars/Cars";
-import Header from "./components/Header/Header";
-import Computer from "./components/Computer/Computer";
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
-import WithClass from "./components/hoc/WithClass";
-import AuthContext from "./context/auth-context";
-import appModuleStyles from "./App.module.css";
-import Posts from "./components/Posts/Posts";
-import Footer from "./components/Footer/Footer";
 import { connect } from "react-redux";
+import AuthForm from "./components/AuthForm/AuthForm";
+import AuthContext from "./context/auth-context";
+import Footer from "./components/Footer/Footer";
 import personMapDispatchToProps from "./store/actions/personActions/mapDispatchToProps";
 import authMapDispatchToProps from "./store/actions/authActions/mapDispatchToProps";
-import AuthForm from "./components/AuthForm/AuthForm";
-import Orders from "./components/Orders/Orders";
+import WithClass from "./components/hoc/WithClass";
 import { autoSignIn } from "./store/actions/actions";
+import appModuleStyles from "./App.module.css";
+
+const Persons = React.lazy(() => import("./components/Persons/Persons"));
+const Cars = React.lazy(() => import("./components/Cars/Cars"));
+const Header = React.lazy(() => import("./components/Header/Header"));
+const Computer = React.lazy(() => import("./components/Computer/Computer"));
+const Posts = React.lazy(() => import("./components/Posts/Posts"));
+const Orders = React.lazy(() => import("./components/Orders/Orders"));
+const ErrorBoundary = React.lazy(() =>
+  import("./components/ErrorBoundary/ErrorBoundary")
+);
 
 class App extends Component {
   state = {
@@ -103,7 +106,9 @@ class App extends Component {
     }
     return (
       <WithClass classes={appModuleStyles.App}>
-        <BrowserRouter>{router}</BrowserRouter>
+        <Suspense fallback={<div>Loading...</div>}>
+          <BrowserRouter>{router}</BrowserRouter>
+        </Suspense>
         <Footer />
       </WithClass>
     );
