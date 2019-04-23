@@ -11,14 +11,9 @@ configure({
 });
 
 describe("Header", () => {
-  const props = {
-    location: {
-      pathname: "/"
-    }
-  };
   let wrapper = null;
   beforeEach(() => {
-    wrapper = shallow(<Header {...props} />);
+    wrapper = shallow(<Header location={{ pathname: "/" }} />);
   });
   it("Navigation in Header should be displayed", () => {
     const navElement = wrapper.find(Navigation);
@@ -41,12 +36,11 @@ describe("Header", () => {
     expect(buttonsArray[1].prop("disabled")).toBe(true);
   });
   it("First button should be dissabled, second should be enabled", () => {
-    const props = {
+    wrapper.setProps({
       location: {
         pathname: "/cars"
       }
-    };
-    wrapper = shallow(<Header {...props} />);
+    });
     const buttons = wrapper.find("button");
     const buttonsArray = buttons.map(el => el);
     expect(buttonsArray[0].prop("disabled")).toBe(true);
