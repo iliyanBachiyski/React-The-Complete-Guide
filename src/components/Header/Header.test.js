@@ -1,5 +1,4 @@
 import React from "react";
-import { Route } from "react-router-dom";
 import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
@@ -12,28 +11,30 @@ configure({
 
 describe("Header", () => {
   let wrapper = null;
+  let buttons = null;
+  let buttonsArray = null;
+  let personsButton = null;
+  let carsButton = null;
   beforeEach(() => {
     wrapper = shallow(<Header location={{ pathname: "/" }} />);
+    buttons = wrapper.find("button");
+    buttonsArray = buttons.map(el => el);
+    personsButton = buttonsArray[0];
+    carsButton = buttonsArray[1];
   });
   it("Navigation in Header should be displayed", () => {
-    const navElement = wrapper.find(Navigation);
-    expect(navElement).toHaveLength(1);
+    expect(wrapper.contains(<Navigation />)).toEqual(true);
   });
   it("Buttons in Header should be displayed", () => {
-    const buttonElements = wrapper.find("button");
-    expect(buttonElements).toHaveLength(2);
+    expect(buttons).toHaveLength(2);
   });
   it("Confirm buttons", () => {
-    const buttons = wrapper.find("button");
-    const buttonsArray = buttons.map(el => el);
-    expect(buttonsArray[0].text()).toBe("Show/Hide Persons");
-    expect(buttonsArray[1].text()).toBe("Show/Hide Cars");
+    expect(personsButton.text()).toBe("Show/Hide Persons");
+    expect(carsButton.text()).toBe("Show/Hide Cars");
   });
   it("First button should be enabled, second should be dissabled", () => {
-    const buttons = wrapper.find("button");
-    const buttonsArray = buttons.map(el => el);
-    expect(buttonsArray[0].prop("disabled")).toBe(false);
-    expect(buttonsArray[1].prop("disabled")).toBe(true);
+    expect(personsButton.prop("disabled")).toBe(false);
+    expect(carsButton.prop("disabled")).toBe(true);
   });
   it("First button should be dissabled, second should be enabled", () => {
     wrapper.setProps({
@@ -41,9 +42,44 @@ describe("Header", () => {
         pathname: "/cars"
       }
     });
-    const buttons = wrapper.find("button");
-    const buttonsArray = buttons.map(el => el);
-    expect(buttonsArray[0].prop("disabled")).toBe(true);
-    expect(buttonsArray[1].prop("disabled")).toBe(false);
+    buttons = wrapper.find("button");
+    buttonsArray = buttons.map(el => el);
+    personsButton = buttonsArray[0];
+    carsButton = buttonsArray[1];
+    expect(personsButton.prop("disabled")).toBe(true);
+    expect(carsButton.prop("disabled")).toBe(false);
+  });
+  it("Confirm that Person Button Should Have Green Color", () => {
+    wrapper.setProps({
+      personsLength: 3
+    });
+    buttons = wrapper.find("button");
+    buttonsArray = buttons.map(el => el);
+    personsButton = buttonsArray[0];
+    carsButton = buttonsArray[1];
+    expect(personsButton.text()).toBe("Show/Hide Persons");
+    expect(personsButton.prop("className")).toContain("green");
+  });
+  it("Confirm that Person Button Should Have Yellow Color", () => {
+    wrapper.setProps({
+      personsLength: 2
+    });
+    buttons = wrapper.find("button");
+    buttonsArray = buttons.map(el => el);
+    personsButton = buttonsArray[0];
+    carsButton = buttonsArray[1];
+    expect(personsButton.text()).toBe("Show/Hide Persons");
+    expect(personsButton.prop("className")).toContain("yellow");
+  });
+  it("Confirm that Person Button Should Have Red Color", () => {
+    wrapper.setProps({
+      personsLength: 1
+    });
+    buttons = wrapper.find("button");
+    buttonsArray = buttons.map(el => el);
+    personsButton = buttonsArray[0];
+    carsButton = buttonsArray[1];
+    expect(personsButton.text()).toBe("Show/Hide Persons");
+    expect(personsButton.prop("className")).toContain("red");
   });
 });
