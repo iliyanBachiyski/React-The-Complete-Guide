@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import axios from "axios";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import { BrowserRouter } from "react-router-dom";
 
 axios.defaults.baseURL = "https://jsonplaceholder.typicode.com";
 axios.defaults.headers.authorization = "SOME TOKEN";
@@ -38,7 +39,9 @@ axios.interceptors.response.use(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );

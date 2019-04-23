@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, Fragment } from "react";
 import Navigation from "../Navigation/Navigation";
 import appModuleStyles from "../../App.module.css";
-import { withRouter } from "react-router-dom";
 
 const header = props => {
   const personButtonRef = useRef(null);
@@ -54,4 +53,4 @@ const header = props => {
  * Into Class-based component this optimization can be implement in shouldComponentUpdate() method
  * It will be re-renderd only the props get changed.
  */
-export default withRouter(React.memo(header));
+export default React.memo(header);

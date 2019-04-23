@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import AuthForm from "./components/AuthForm/AuthForm";
 import AuthContext from "./context/auth-context";
@@ -55,6 +55,7 @@ class App extends Component {
             personsLength={this.props.persons.length}
             showCars={this.state.showCars}
             logout={this.props.logOutRequest}
+            {...this.props}
           />
         </AuthContext.Provider>
         <Switch>
@@ -106,9 +107,7 @@ class App extends Component {
     }
     return (
       <WithClass classes={appModuleStyles.App}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <BrowserRouter>{router}</BrowserRouter>
-        </Suspense>
+        <Suspense fallback={<div>Loading...</div>}>{router}</Suspense>
         <Footer />
       </WithClass>
     );
@@ -134,4 +133,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(withRouter(App));
