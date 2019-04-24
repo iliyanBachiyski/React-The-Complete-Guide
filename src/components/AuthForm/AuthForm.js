@@ -103,7 +103,7 @@ class AuthForm extends Component {
     if (this.props.error) {
       error = (
         <div>
-          <h3>{this.props.error.toString()}</h3>
+          <h3 style={{ color: "red" }}>{this.props.error.toString()}</h3>
         </div>
       );
     }
@@ -119,11 +119,6 @@ class AuthForm extends Component {
         <button onClick={this.switchAuthMode}>
           Switch to {switchToButtonText}
         </button>
-        <div>
-          <h3>Debugging Info</h3>
-          <p>Is user auth: {this.props.isUserAuth.toString()}</p>
-          <p>Message: {this.props.message}</p>
-        </div>
       </div>
     );
   }
